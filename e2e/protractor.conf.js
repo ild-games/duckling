@@ -9,12 +9,14 @@ const { SpecReporter } = require('jasmine-spec-reporter');
  */
 exports.config = {
     allScriptsTimeout: 11000,
-    getPageTimeout: 100000,
     specs: [
         './src/**/*.e2e-spec.ts'
     ],
     capabilities: {
-        browserName: 'chrome'
+        browserName: 'chrome',
+        chromeOptions: {
+            binary: require('puppeteer').executablePath(),
+        },
     },
     directConnect: true,
     baseUrl: 'http://localhost:4200/',
