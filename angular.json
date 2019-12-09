@@ -103,6 +103,13 @@
                             "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
                             "node_modules/@clr/icons/clr-icons.min.js"
                         ]
+                    },
+                    "configurations": {
+                        "ci": {
+                            "watch": false,
+                            "progress": false,
+                            "browsers": "ChromeHeadless"
+                        }
                     }
                 },
                 "lint": {
@@ -127,6 +134,10 @@
                     "configurations": {
                         "production": {
                             "devServerTarget": "duckling:serve:production"
+                        },
+                        "ci": {
+                            "devServerTarget": "duckling:serve:production",
+                            "protractorConfig": "e2e/protractor-ci.conf.js"
                         }
                     }
                 }
