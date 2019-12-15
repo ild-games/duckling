@@ -24,7 +24,7 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles.css",
+                            "src/styles.scss",
                             "node_modules/@clr/ui/clr-ui.min.css",
                             "node_modules/@clr/icons/clr-icons.min.css"
                         ],
@@ -95,7 +95,7 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles.css",
+                            "src/styles.scss",
                             "node_modules/@clr/ui/clr-ui.min.css",
                             "node_modules/@clr/icons/clr-icons.min.css"
                         ],

@@ -1,0 +1,27 @@
+$tab-margin: 4px;
+
+.nav-item {
+    margin-left: $tab-margin;
+    margin-right: $tab-margin;
+
+    .nav-link {
+        user-select: none;
+    }
+
+    .nav-link:focus {
+        outline: none;
+    }
+}
+
+.nav-item-active {
+    box-shadow: 0 -3px 0 #0077b8 inset;
+    transition: box-shadow .2s ease-in;
+}
+
+.close-button {
+    padding-left: $tab-margin;
+    cursor: pointer;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    display: inline-block;
+}
