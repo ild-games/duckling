@@ -8,13 +8,23 @@ $tab-margin: 4px;
         user-select: none;
     }
 
+    .nav-link:hover {
+        box-shadow: none;
+        transition: none;
+    }
+
     .nav-link:focus {
         outline: none;
     }
 }
 
-.nav-item-active {
+.nav-item-active, .nav-item-active:hover {
     box-shadow: 0 -3px 0 #0077b8 inset;
+    transition: box-shadow .2s ease-in;
+}
+
+.nav-item-inactive:hover {
+    box-shadow: 0 -3px 0 #0078b846 inset;
     transition: box-shadow .2s ease-in;
 }
 

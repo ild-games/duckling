@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'dk-dockable-tab',
@@ -8,15 +8,15 @@ import { Component, Input } from '@angular/core';
             role='presentation'
             [class]='tabCssClasses'
         >
-            <button 
+            <button
                 type='button'
                 [class]='tabButtonCssClasses'
+                (click)='onClickedTab()'
                 [attr.aria-selected]='isActive'
             >
                 {{name}}
             </button>
             <div
-                *ngIf='isActive'
                 class='close-button'
             >
                 <clr-icon
@@ -32,10 +32,11 @@ import { Component, Input } from '@angular/core';
     `
 })
 export class DockableTabComponent {
-    @Input() isActive: boolean;
+    @Input() isActive = false;
     @Input() name: string;
+    @Output() tabClick = new EventEmitter();
 
-    private _isCloseButtonHovered: boolean = false;
+    private _isCloseButtonHovered = false;
 
     onMouseEnterCloseButton() {
         this._isCloseButtonHovered = true;
@@ -43,6 +44,10 @@ export class DockableTabComponent {
 
     onMouseLeaveCloseButton() {
         this._isCloseButtonHovered = false;
+    }
+
+    onClickedTab() {
+        this.tabClick.emit(null);
     }
 
     get tabButtonCssClasses(): string {

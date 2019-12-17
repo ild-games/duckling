@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DockComponent } from './dock/dock.component';
 import { DockableTabComponent } from './dock/dockable-tab.component';
 import { DockableGroupComponent } from './dock/dockable-group.component';
+import { DockActions } from './dock/dock.state';
 
 const CONTROL_DECLARACTIONS = [
     DockComponent,
@@ -29,6 +30,9 @@ const CONTROL_DECLARACTIONS = [
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
+    ],
+    providers: [
+        DockActions
     ]
 })
 export class ControlsModule {
