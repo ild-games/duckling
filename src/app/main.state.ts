@@ -7,9 +7,6 @@ export interface IDucklingState {
 }
 
 export const INITIAL_DUCKLING_STATE: IDucklingState = {
-    // dock: {
-    //     ...defaultDockState
-    // }
     dock: defaultDockState,
 };
 

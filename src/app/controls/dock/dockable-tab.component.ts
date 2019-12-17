@@ -6,26 +6,21 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     template: `
         <li
             role='presentation'
-            [class]='tabCssClasses'
-        >
+            [class]='tabCssClasses'>
             <button
                 type='button'
                 [class]='tabButtonCssClasses'
                 (click)='onClickedTab()'
-                [attr.aria-selected]='isActive'
-            >
+                [attr.aria-selected]='isActive'>
                 {{name}}
             </button>
-            <div
-                class='close-button'
-            >
+            <div class='close-button'>
                 <clr-icon
                     size='16'
                     attr.shape='{{closeIconShape}}'
                     [class]='closeButtonCssClasses'
                     (mouseenter)='onMouseEnterCloseButton()'
-                    (mouseleave)='onMouseLeaveCloseButton()'
-                >
+                    (mouseleave)='onMouseLeaveCloseButton()'>
                 </clr-icon>
             </div>
         </li>

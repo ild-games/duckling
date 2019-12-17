@@ -37,8 +37,10 @@ export class DockableGroupComponent implements OnInit {
     @select((state: IDucklingState) => state.dock.activeTab)
     readonly activeTab$: Observable<number>;
 
-    constructor(private _dockActions: DockActions,
-                private _ngRedux: NgRedux<IDucklingState>) {
+    constructor(
+        private _dockActions: DockActions,
+        private _ngRedux: NgRedux<IDucklingState>,
+    ) {
     }
 
     ngOnInit() {
