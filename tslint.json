@@ -1,6 +1,7 @@
 {
     "extends": "tslint:recommended",
     "rules": {
+        "no-unused-expression": true,
         "variable-name": {
             "options": [
                 "allow-leading-underscore"

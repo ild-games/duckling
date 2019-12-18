@@ -31,7 +31,7 @@ export class DockActions {
     changeActiveTab(newActiveTab: number): IActiveTabAction {
         return {
             type: DockActions.CHANGE_ACTIVE_TAB,
-            newActiveTab
+            newActiveTab,
         };
     }
 }

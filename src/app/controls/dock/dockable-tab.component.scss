@@ -1,14 +1,13 @@
+@import 'colors.scss';
+
 $tab-margin: 4px;
 
 .nav-item {
     margin-left: $tab-margin;
     margin-right: $tab-margin;
 
-    .nav-link {
+    .nav-link, .nav-link:hover {
         user-select: none;
-    }
-
-    .nav-link:hover {
         box-shadow: none;
         transition: none;
     }
@@ -19,12 +18,12 @@ $tab-margin: 4px;
 }
 
 .nav-item-active, .nav-item-active:hover {
-    box-shadow: 0 -3px 0 #0077b8 inset;
+    box-shadow: 0 -3px 0 $dk-highlight-color inset;
     transition: box-shadow .2s ease-in;
 }
 
 .nav-item-inactive:hover {
-    box-shadow: 0 -3px 0 #0078b846 inset;
+    box-shadow: 0 -3px 0 $dk-highlight-color-transparent inset;
     transition: box-shadow .2s ease-in;
 }
 

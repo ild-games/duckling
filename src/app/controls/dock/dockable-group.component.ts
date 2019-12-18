@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DockActions } from './dock.state';
-import { NgRedux, select } from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
 import { IDucklingState } from 'src/app/main.state';
 import { Observable } from 'rxjs';
+import { dkSelect } from 'src/app/utils/state';
 
 interface IPane {
     name: string;
@@ -18,15 +19,13 @@ interface IPane {
                 *ngFor='let pane of panes; index as i'
                 [isActive]='i == (activeTab$ | async)'
                 (tabClick)='changeActiveTab(i)'
-                [name]='pane.name'
-            >
+                [name]='pane.name'>
             </dk-dockable-tab>
         </ul>
         <section
             *ngFor='let pane of panes; index as i'
             role='tabpanel'
-            attr.aria-hidden='{{i != (activeTab$ | async)}}'
-        >
+            attr.aria-hidden='{{i != (activeTab$ | async)}}'>
             {{pane.content}}
         </section>
     `
@@ -34,8 +33,7 @@ interface IPane {
 export class DockableGroupComponent implements OnInit {
     panes: IPane[] = [];
 
-    @select((state: IDucklingState) => state.dock.activeTab)
-    readonly activeTab$: Observable<number>;
+    @dkSelect(state => state.dock.activeTab) readonly activeTab$: Observable<number>;
 
     constructor(
         private _dockActions: DockActions,

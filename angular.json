@@ -23,6 +23,11 @@
                             "src/favicon.ico",
                             "src/assets"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/styles"
+                            ]
+                        },
                         "styles": [
                             "src/styles.scss",
                             "node_modules/@clr/ui/clr-ui.min.css",
@@ -94,6 +99,11 @@
                             "src/favicon.ico",
                             "src/assets"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/styles"
+                            ]
+                        },
                         "styles": [
                             "src/styles.scss",
                             "node_modules/@clr/ui/clr-ui.min.css",

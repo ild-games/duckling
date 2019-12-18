@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgReduxModule, NgRedux, Selector, Comparator, DevToolsExtension } from '@angular-redux/store';
+import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShellComponent } from './shell/shell.component';
@@ -9,6 +9,7 @@ import { ControlsModule } from './controls/controls.module';
 import { SplashScreenModule } from './splashscreen/splash-screen.module';
 import { IDucklingState, mainReducer, INITIAL_DUCKLING_STATE } from './main.state';
 import { environment } from 'src/environments/environment';
+import { StoreEnhancer } from 'redux';
 
 @NgModule({
     imports: [
@@ -28,7 +29,7 @@ export class AppModule {
         private _ngRedux: NgRedux<IDucklingState>,
         private _devTools: DevToolsExtension,
     ) {
-        let enhancers = [];
+        let enhancers: StoreEnhancer<IDucklingState, any>[] = [];
 
         if (!environment.production && this._devTools.isEnabled()) {
             enhancers = [

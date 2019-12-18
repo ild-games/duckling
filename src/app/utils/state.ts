@@ -1,4 +1,6 @@
-import { Selector, Comparator } from '@angular-redux/store';
+import { Selector, Comparator, select } from '@angular-redux/store';
 import { IDucklingState } from '../main.state';
 
-export declare function dkSelect<T>(selector?: Selector<IDucklingState, T>, comparator?: Comparator): PropertyDecorator;
+export function dkSelect<T>(selector?: Selector<IDucklingState, T>, comparator?: Comparator): PropertyDecorator {
+    return select(selector, comparator);
+}
