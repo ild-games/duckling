@@ -14,22 +14,29 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                 [attr.aria-selected]='isActive'>
                 {{name}}
             </button>
-            <div class='close-button'>
+            <div
+                *ngIf='canClose'
+                class='close-button'>
                 <clr-icon
                     size='16'
                     attr.shape='{{closeIconShape}}'
                     [class]='closeButtonCssClasses'
                     (mouseenter)='onMouseEnterCloseButton()'
-                    (mouseleave)='onMouseLeaveCloseButton()'>
+                    (mouseleave)='onMouseLeaveCloseButton()'
+                    (click)='onClickedClose()'>
                 </clr-icon>
             </div>
         </li>
+        <div class='divider'>
+        </div>
     `
 })
 export class DockableTabComponent {
     @Input() isActive = false;
+    @Input() canClose = true;
     @Input() name: string;
     @Output() tabClick = new EventEmitter();
+    @Output() closeClick = new EventEmitter();
 
     private _isCloseButtonHovered = false;
 
@@ -39,6 +46,10 @@ export class DockableTabComponent {
 
     onMouseLeaveCloseButton() {
         this._isCloseButtonHovered = false;
+    }
+
+    onClickedClose() {
+        this.closeClick.emit(null);
     }
 
     onClickedTab() {

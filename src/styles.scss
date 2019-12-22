@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import 'mixins';
+
 html, body {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0
+    @include fill;
+    box-sizing: border-box;
+    display: block;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }

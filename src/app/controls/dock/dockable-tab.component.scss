@@ -2,9 +2,16 @@
 
 $tab-margin: 4px;
 
+:host {
+    display: flex;
+    flex-direction: row;
+}
+
 .nav-item {
+    flex: 1 1;
     margin-left: $tab-margin;
     margin-right: $tab-margin;
+    margin-bottom: 2px;
 
     .nav-link, .nav-link:hover {
         user-select: none;
@@ -33,4 +40,18 @@ $tab-margin: 4px;
     line-height: 1.5rem;
     height: 1.5rem;
     display: inline-block;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    flex: 0 0 1px;
+    padding-left: 4px;
+    width: 1px;
+}
+
+.divider:after {
+    content: '';
+    height: 65%;
+    border-right: 1px solid #bbb
 }

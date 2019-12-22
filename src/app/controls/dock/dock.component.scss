@@ -1,7 +1,10 @@
 @import 'mixins';
 
+$group-margin: 10px;
+
 :host {
     @include fill;
 
     display: block;
+    background-color: #aaa;
 }
