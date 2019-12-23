@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-    selector: 'dk-dockable-tab',
-    styleUrls: ['dockable-tab.component.scss'],
+    selector: 'dk-pane-tab',
+    styleUrls: ['pane-tab.component.scss'],
     template: `
         <li
             role='presentation'
@@ -31,7 +31,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         </div>
     `
 })
-export class DockableTabComponent {
+export class PaneTabComponent {
     @Input() isActive = false;
     @Input() canClose = true;
     @Input() name: string;

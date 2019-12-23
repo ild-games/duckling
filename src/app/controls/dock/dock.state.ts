@@ -1,81 +1,199 @@
-import { Injectable } from '@angular/core';
-import { Action } from 'redux';
-import { IPane } from './pane';
+import { assertNever, removeByKey } from '../../utils/state';
+import { IDockElements, IPaneGroups, IPanes } from './dock';
 
 export interface IDockState {
-    activeTabIndex: number;
-    panes: IPane[]
+    rootDockId: string;
+    dockElements: IDockElements;
+    paneGroups: IPaneGroups;
+    panes: IPanes;
 }
 
 export const defaultDockState: IDockState = {
-    activeTabIndex: 0,
-    panes: [
-        {
-            name: 'Filesystem',
-            content: 'Filesystem content'
+    rootDockId: 'd0',
+    dockElements: {
+        'd0': {
+            id: 'd0',
+            contents: {
+                'right': {
+                    type: 'paneGroup',
+                    id: 'pg0',
+                },
+                'bottom': {
+                    type: 'paneGroup',
+                    id: 'pg1',
+                },
+                'left': {
+                    type: 'paneGroup',
+                    id: 'pg2',
+                },
+                'top': {
+                    type: 'dock',
+                    id: 'd1',
+                },
+            }
         },
-        {
-            name: 'Scene',
-            content: 'Scene content'
+        'd1': {
+            id: 'd1',
+            parentDockId: 'd0',
+            contents: {
+                'top': {
+                    type: 'paneGroup',
+                    id: 'pg3',
+                },
+                'bottom': {
+                    type: 'paneGroup',
+                    id: 'pg4',
+                },
+            }
         },
-        {
-            name: 'Inspector',
-            content: 'Inspector content'
+    },
+    paneGroups: {
+        'pg0': {
+            id: 'pg0',
+            parentDockId: 'd0',
+            paneIds: [
+                'p0',
+            ],
+            activePaneIndex: 0,
         },
-    ],
+        'pg1': {
+            id: 'pg1',
+            parentDockId: 'd0',
+            paneIds: [
+                'p1',
+            ],
+            activePaneIndex: 0,
+        },
+        'pg2': {
+            id: 'pg2',
+            parentDockId: 'd0',
+            paneIds: [
+                'p2',
+                'p5',
+            ],
+            activePaneIndex: 0,
+        },
+        'pg3': {
+            id: 'pg3',
+            parentDockId: 'd1',
+            paneIds: [
+                'p3',
+            ],
+            activePaneIndex: 0,
+        },
+        'pg4': {
+            id: 'pg4',
+            parentDockId: 'd1',
+            paneIds: [
+                'p4',
+            ],
+            activePaneIndex: 0,
+        },
+    },
+    panes: {
+        'p0': {
+            id: 'p0',
+            name: 'Pane Right',
+            content: 'Pane Right Content',
+            groupId: 'pg0',
+        },
+        'p1': {
+            id: 'p1',
+            name: 'Pane Bottom',
+            content: 'Pane Bottom Content',
+            groupId: 'pg1',
+        },
+        'p2': {
+            id: 'p2',
+            name: 'Pane Left',
+            content: 'Pane Left Content',
+            groupId: 'pg2',
+        },
+        'p3': {
+            id: 'p3',
+            name: 'Pane Top Top',
+            content: 'Pane Top Top Content',
+            groupId: 'pg3',
+        },
+        'p4': {
+            id: 'p4',
+            name: 'Pane Top Bottom',
+            content: 'Pane Top Bottom Content',
+            groupId: 'pg4',
+        },
+        'p5': {
+            id: 'p5',
+            name: 'Pane Left 2',
+            content: 'Pane Left 2 Content',
+            groupId: 'pg2',
+        },
+    },
 };
 
-export function dockReducer(state: IDockState, action: Action): IDockState {
-    if (action.type === DockActions.CHANGE_ACTIVE_TAB) {
-        return {
-            ...state,
-            activeTabIndex: (action as IActiveTabAction).tabIndex,
-        };
-    }
-
-    if (action.type === DockActions.CLOSE_TAB) {
-        if (state.panes.length === 1) {
-            return state;
+export function dockReducer(state: IDockState, action: ITabAction): IDockState {
+    switch (action.type) {
+        case 'CHANGE_ACTIVE_TAB': {
+            return {
+                ...state,
+                paneGroups: {
+                    ...state.paneGroups,
+                    [action.groupId]: {
+                        ...state.paneGroups[action.groupId],
+                        activePaneIndex: action.paneIndex,
+                    },
+                },
+            };
         }
 
-        const index = (action as ICloseTabAction).tabIndex;
-        return {
-            ...state,
-            activeTabIndex: index === state.panes.length - 1 ? index - 1 : index,
-            panes: [
-                ...state.panes.slice(0, index), 
-                ...state.panes.slice(index + 1)
-            ],
-        };
+        case 'CLOSE_TAB': {
+            return {
+                ...state,
+                paneGroups: {
+                    ...state.paneGroups,
+                    [action.groupId]: {
+                        ...state.paneGroups[action.groupId],
+                        activePaneIndex: (
+                            action.paneIndex === state.paneGroups[action.groupId].paneIds.length - 1 
+                                ? action.paneIndex - 1
+                                : action.paneIndex
+                        ),
+                        paneIds: [
+                            ...state.paneGroups[action.groupId].paneIds.slice(0, action.paneIndex),
+                            ...state.paneGroups[action.groupId].paneIds.slice(action.paneIndex + 1),
+                        ],
+                    },
+                },
+                panes: removeByKey(state.panes, action.paneId),
+            };
+        }
+
+        default: assertNever(action);
     }
 
     return state;
 }
 
-interface IActiveTabAction extends Action {
-    tabIndex: number;
-}
+export type ITabAction = (
+    | ReturnType<typeof dockActions.changeActiveTab>
+    | ReturnType<typeof dockActions.closeTab>
+);
 
-interface ICloseTabAction extends Action {
-    tabIndex: number;
-}
+export const dockActions = {
 
-@Injectable()
-export class DockActions {
-    static CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
-    static CLOSE_TAB = 'CLOSE_TAB';
-
-    changeActiveTab(tabIndex: number): IActiveTabAction {
+    changeActiveTab(paneIndex: number, groupId: string) {
         return {
-            type: DockActions.CHANGE_ACTIVE_TAB,
-            tabIndex,
+            type: 'CHANGE_ACTIVE_TAB' as const,
+            paneIndex,
+            groupId,
         };
-    }
+    },
 
-    closeTab(tabIndex: number): ICloseTabAction {
+    closeTab(paneIndex: number, paneId: string, groupId: string) {
         return {
-            type: DockActions.CLOSE_TAB,
-            tabIndex,
+            type: 'CLOSE_TAB' as const,
+            paneIndex,
+            paneId,
+            groupId,
         };
-    }
-}
+    },
+};

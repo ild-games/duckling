@@ -3,8 +3,21 @@
 $group-margin: 10px;
 
 :host {
-    @include fill;
-
-    display: block;
+    height: 100%;
+    display: flex;
     background-color: #aaa;
+
+    .left-area, .right-area {
+        flex: 1 1 33%;
+    }
+
+    .vertical-areas {
+        flex: 1 1 33%;
+        display: flex;
+        flex-direction: column;
+
+        .top-area, .bottom-area {
+            flex: 1 1 50%;
+        }
+    }
 }

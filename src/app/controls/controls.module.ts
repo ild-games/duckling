@@ -3,14 +3,15 @@ import { ClarityModule } from '@clr/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DockComponent } from './dock/dock.component';
-import { DockableTabComponent } from './dock/dockable-tab.component';
-import { DockableGroupComponent } from './dock/dockable-group.component';
-import { DockActions } from './dock/dock.state';
+import { PaneTabComponent } from './dock/pane-tab.component';
+import { PaneGroupComponent } from './dock/pane-group.component';
+import { DockContentsComponent } from './dock/dock-contents.component';
 
 const CONTROL_DECLARACTIONS = [
     DockComponent,
-    DockableTabComponent,
-    DockableGroupComponent,
+    DockContentsComponent,
+    PaneTabComponent,
+    PaneGroupComponent,
 ];
 
 @NgModule({
@@ -30,9 +31,6 @@ const CONTROL_DECLARACTIONS = [
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
-    ],
-    providers: [
-        DockActions
     ]
 })
 export class ControlsModule {
