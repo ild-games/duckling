@@ -66,8 +66,8 @@ export class PaneGroupComponent implements OnInit {
         const dockId = this._ngRedux.getState().dock.paneGroups[this.id].parentDockId;
         const dockContentId = generateDockContentId(dockId, this.id);
         const parentDockId = this._ngRedux.getState().dock.docks[dockId].parentDockId;
-        const parentDockContentIds = parentDockId !== undefined
-            ? Object.keys(this._ngRedux.getState().dock.docks[parentDockId].children).map(key => generateDockContentId(parentDockId, key))
+        const parentDockContentId = parentDockId !== undefined
+            ? generateDockContentId(parentDockId, dockId)
             : undefined;
 
         if (this._isGroupEmpty()) {
@@ -75,7 +75,7 @@ export class PaneGroupComponent implements OnInit {
         }
 
         if (this._isDockEmpty(dockId) && this._doesDockHaveParent(dockId)) {
-            this._ngRedux.dispatch(dockActions.closeDock(dockId, dockContentId, parentDockId, parentDockContentIds));
+            this._ngRedux.dispatch(dockActions.closeDock(dockId, parentDockId, parentDockContentId));
         }
 
         if (!this._isActivePaneValid()) {

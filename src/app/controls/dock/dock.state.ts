@@ -1,4 +1,4 @@
-import { assertNever, removeByKey, removeByKeys } from '../../utils/state';
+import { assertNever, removeByKey } from '../../utils/state';
 import { IDocks, IPaneGroups, IPanes, IDockContents } from './dock';
 
 export interface IDockState {
@@ -215,11 +215,7 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
                         children: removeByKey(state.docks[action.parentDockId].children, action.dockId)
                     },
                 },
-                dockContents: {
-                    ...state.dockContents,
-                    ...removeByKey(state.dockContents, action.dockContentId),
-                    ...removeByKeys(state.dockContents, action.parentDockContentIds),
-                }
+                dockContents: removeByKey(state.dockContents, action.parentDockContentId),
             }
         }
 
@@ -264,13 +260,12 @@ export const dockActions = {
         };
     },
 
-    closeDock(dockId: string, dockContentId: string, parentDockId: string, parentDockContentIds: string[]) {
+    closeDock(dockId: string, parentDockId: string, parentDockContentId: string) {
         return {
             type: 'CLOSE_DOCK' as const,
             dockId,
             parentDockId,
-            dockContentId,
-            parentDockContentIds,
+            parentDockContentId,
         };
     },
 };
