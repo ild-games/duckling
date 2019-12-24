@@ -7,14 +7,14 @@ import { IDockContent } from './dock';
     template: `
         <dk-dock
             *ngIf='isDock'
-            [id]='content.id'>
+            [id]='content.childId'>
         </dk-dock>
 
         <div 
             *ngIf='isPaneGroup'
             class='pane-group-container'>
 
-            <dk-pane-group [id]='content.id'>
+            <dk-pane-group [id]='content.childId'>
             </dk-pane-group>
         </div>
     `

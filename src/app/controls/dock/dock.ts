@@ -14,19 +14,24 @@ export interface IPaneGroup {
     parentDockId: string;
 }
 
-export interface IDockElements { [id: string]: IDockElement }
-export interface IDockElement {
+export interface IDockChildrenIds { [id: string]: string }
+export interface IDocks { [id: string]: IDock }
+export interface IDock {
     id: string;
-    contents: DockContents;
+    children: IDockChildrenIds;
     parentDockId?: string;
 }
 
-export type DockContents = {
-    [key in DockOrientation]?: IDockContent;
-};
+export interface IDockContents { [id: string]: IDockContent }
 export interface IDockContent {
     type: 'dock' | 'paneGroup';
-    id: string;
+    orientation: DockOrientation;
+    dockId: string;
+    childId: string;
 }
 
 export type DockOrientation = 'top' | 'right' | 'bottom' | 'left';
+
+export function dockContentId(dockId: string, contentId: string) {
+    return `${dockId}|${contentId}`;
+}

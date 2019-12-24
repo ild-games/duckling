@@ -13,3 +13,11 @@ export function removeByKey<ValueType>(object: ObjectHash<ValueType>, key: (stri
     const { [key]: removedValue, ...objectWithRemovedValue } = object;
     return objectWithRemovedValue;
 }
+
+export function removeByKeys<ValueType>(object: ObjectHash<ValueType>, keys: (string | number)[]): ObjectHash<ValueType> {
+    for (let key in keys) {
+        object = removeByKey(object, key);
+    }
+
+    return object;
+}
