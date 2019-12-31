@@ -9,9 +9,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             [class]='tabCssClasses'>
             <button
                 type='button'
+                [title]='name'
                 [class]='tabButtonCssClasses'
-                (click)='onClickedTab()'
-                [attr.aria-selected]='isActive'>
+                [attr.aria-selected]='isActive'
+                (click)='onTabClick()'
+                (mouseup)='$event.which === 2 ? onCloseClick() : null'>
                 {{name}}
             </button>
             <div
@@ -23,22 +25,36 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                     [class]='closeButtonCssClasses'
                     (mouseenter)='onMouseEnterCloseButton()'
                     (mouseleave)='onMouseLeaveCloseButton()'
-                    (click)='onClickedClose()'>
+                    (click)='onCloseClick()'>
                 </clr-icon>
             </div>
         </li>
+
         <div class='divider'>
         </div>
+
+        <li *ngIf='isLastTab'>
+            <clr-icon
+                attr.shape='{{addIconShape}}'
+                [class]='addButtonCssClasses'
+                (mouseenter)='onMouseEnterAddButton()'
+                (mouseleave)='onMouseLeaveAddButton()'
+                (click)='onAddPaneClick()'>
+            </clr-icon>
+        </li>
     `
 })
 export class PaneTabComponent {
     @Input() isActive = false;
     @Input() canClose = true;
+    @Input() isLastTab = false;
     @Input() name: string;
     @Output() tabClick = new EventEmitter();
     @Output() closeClick = new EventEmitter();
+    @Output() addPaneClick = new EventEmitter();
 
     private _isCloseButtonHovered = false;
+    private _isAddButtonHovered = false;
 
     onMouseEnterCloseButton() {
         this._isCloseButtonHovered = true;
@@ -48,12 +64,24 @@ export class PaneTabComponent {
         this._isCloseButtonHovered = false;
     }
 
-    onClickedClose() {
+    onCloseClick() {
         this.closeClick.emit(null);
     }
 
-    onClickedTab() {
+    onTabClick() {
         this.tabClick.emit(null);
+    }
+
+    onAddPaneClick() {
+        this.addPaneClick.emit(null);
+    }
+
+    onMouseEnterAddButton() {
+        this._isAddButtonHovered = true;
+    }
+
+    onMouseLeaveAddButton() {
+        this._isAddButtonHovered = false;
     }
 
     get tabButtonCssClasses(): string {
@@ -73,12 +101,23 @@ export class PaneTabComponent {
     }
 
     get closeIconShape(): string {
-        return this._isCloseButtonHovered ? 'times-circle' : 'window-close';
+        return this._isCloseButtonHovered ? 'times-circle' : 'times';
     }
 
     get closeButtonCssClasses(): string {
         return [
             this._isCloseButtonHovered ? 'is-solid' : '',
+        ].join(' ').trim();
+    }
+
+    get addIconShape(): string {
+        return this._isAddButtonHovered ? 'plus-circle' : 'plus';
+    }
+
+    get addButtonCssClasses(): string {
+        return [
+            this._isAddButtonHovered ? 'is-solid' : '',
+            'add-icon'
         ].join(' ').trim();
     }
 }

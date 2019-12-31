@@ -1,6 +1,7 @@
 @import 'colors.scss';
 
 $tab-margin: 4px;
+$tab-width: 115px;
 
 :host {
     display: flex;
@@ -9,9 +10,14 @@ $tab-margin: 4px;
 
 .nav-item {
     flex: 1 1;
+    display: flex;
     margin-left: $tab-margin;
     margin-right: $tab-margin;
-    margin-bottom: 2px;
+
+    .nav-link {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
 
     .nav-link, .nav-link:hover {
         user-select: none;
@@ -21,6 +27,16 @@ $tab-margin: 4px;
 
     .nav-link:focus {
         outline: none;
+    }
+
+    .close-button {
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding-left: $tab-margin;
+        cursor: pointer;
+        line-height: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
     }
 }
 
@@ -32,14 +48,6 @@ $tab-margin: 4px;
 .nav-item-inactive:hover {
     box-shadow: 0 -3px 0 $dk-highlight-color-transparent inset;
     transition: box-shadow .2s ease-in;
-}
-
-.close-button {
-    padding-left: $tab-margin;
-    cursor: pointer;
-    line-height: 1.5rem;
-    height: 1.5rem;
-    display: inline-block;
 }
 
 .divider {
@@ -54,4 +62,12 @@ $tab-margin: 4px;
     content: '';
     height: 65%;
     border-right: 1px solid #bbb
+}
+
+.add-icon {
+    height: 100%;
+    width: 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+    cursor: pointer;
 }

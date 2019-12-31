@@ -1,6 +1,4 @@
 import { ColorTheme } from './color-theme';
-import { Action } from 'redux';
-import { Injectable } from '@angular/core';
 
 export interface IColorThemeState {
     activeColorTheme: ColorTheme;
@@ -10,29 +8,29 @@ export const defaultColorThemeState: IColorThemeState = {
     activeColorTheme: 'light',
 };
 
-export function colorThemeReducer(state: IColorThemeState, action: Action): IColorThemeState {
-    if (action.type === ColorThemeActions.CHANGE_ACTIVE_COLOR_THEME) {
-        return {
-            ...state,
-            activeColorTheme: (action as IActiveColorThemeAction).newActiveColorTheme,
-        };
+export function colorThemeReducer(state: IColorThemeState, action: IColorThemeAction): IColorThemeState {
+    switch (action.type) {
+        case 'CHANGE_ACTIVE_COLOR_THEME': {
+            return {
+                ...state,
+                activeColorTheme: action.newActiveColorTheme,
+            };
+        }
+
+        // when a second action is added, change to: `default: assertNever(action)`
+        default: return state;
     }
-
-    return state;
 }
 
-interface IActiveColorThemeAction extends Action {
-    newActiveColorTheme: ColorTheme;
-}
+export type IColorThemeAction = (
+    | ReturnType<typeof colorThemeActions.changeActiveColorTheme>
+);
 
-@Injectable()
-export class ColorThemeActions {
-    static CHANGE_ACTIVE_COLOR_THEME = 'CHANGE_ACTIVE_COLOR_THEME';
-
-    changeActiveColorTheme(newActiveColorTheme: ColorTheme): IActiveColorThemeAction {
+export const colorThemeActions = {
+    changeActiveColorTheme(newActiveColorTheme: ColorTheme) {
         return {
-            type: ColorThemeActions.CHANGE_ACTIVE_COLOR_THEME,
+            type: 'CHANGE_ACTIVE_COLOR_THEME' as const,
             newActiveColorTheme,
         };
-    }
-}
+    },
+};

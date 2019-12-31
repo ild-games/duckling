@@ -12,21 +12,21 @@ export interface IDockState {
 export const defaultDockState: IDockState = {
     rootDockId: 'd0',
     docks: {
-        'd0': {
+        d0: {
             id: 'd0',
             children: {
-                'pg0': 'd0|pg0' ,
-                'pg1': 'd0|pg1',
-                'pg2': 'd0|pg2',
-                'd1': 'd0|d1',
+                pg0: 'd0|pg0',
+                pg1: 'd0|pg1',
+                pg2: 'd0|pg2',
+                d1: 'd0|d1',
             },
         },
-        'd1': {
+        d1: {
             id: 'd1',
             parentDockId: 'd0',
             children: {
-                'pg3': 'd1|pg3',
-                'pg4': 'd1|pg4',
+                pg3: 'd1|pg3',
+                pg4: 'd1|pg4',
             },
         },
     },
@@ -69,7 +69,7 @@ export const defaultDockState: IDockState = {
         },
     },
     paneGroups: {
-        'pg0': {
+        pg0: {
             id: 'pg0',
             parentDockId: 'd0',
             paneIds: [
@@ -77,7 +77,7 @@ export const defaultDockState: IDockState = {
             ],
             activePaneIndex: 0,
         },
-        'pg1': {
+        pg1: {
             id: 'pg1',
             parentDockId: 'd0',
             paneIds: [
@@ -85,7 +85,7 @@ export const defaultDockState: IDockState = {
             ],
             activePaneIndex: 0,
         },
-        'pg2': {
+        pg2: {
             id: 'pg2',
             parentDockId: 'd0',
             paneIds: [
@@ -95,7 +95,7 @@ export const defaultDockState: IDockState = {
             ],
             activePaneIndex: 0,
         },
-        'pg3': {
+        pg3: {
             id: 'pg3',
             parentDockId: 'd1',
             paneIds: [
@@ -103,7 +103,7 @@ export const defaultDockState: IDockState = {
             ],
             activePaneIndex: 0,
         },
-        'pg4': {
+        pg4: {
             id: 'pg4',
             parentDockId: 'd1',
             paneIds: [
@@ -113,54 +113,68 @@ export const defaultDockState: IDockState = {
         },
     },
     panes: {
-        'p0': {
+        p0: {
             id: 'p0',
             name: 'Pane Right',
             content: 'Pane Right Content',
             groupId: 'pg0',
+            minWidth: 200,
+            minHeight: 200,
         },
-        'p1': {
+        p1: {
             id: 'p1',
             name: 'Pane Bottom',
             content: 'Pane Bottom Content',
             groupId: 'pg1',
+            minWidth: 200,
+            minHeight: 200,
         },
-        'p2': {
+        p2: {
             id: 'p2',
             name: 'Pane Left',
             content: 'Pane Left Content',
             groupId: 'pg2',
+            minWidth: 200,
+            minHeight: 200,
         },
-        'p3': {
+        p3: {
             id: 'p3',
             name: 'Pane Top Top',
             content: 'Pane Top Top Content',
             groupId: 'pg3',
+            minWidth: 200,
+            minHeight: 200,
         },
-        'p4': {
+        p4: {
             id: 'p4',
             name: 'Pane Top Bottom',
             content: 'Pane Top Bottom Content',
             groupId: 'pg4',
+            minWidth: 200,
+            minHeight: 200,
         },
-        'p5': {
+        p5: {
             id: 'p5',
             name: 'Pane Left 2',
             content: 'Pane Left 2 Content',
             groupId: 'pg2',
+            minWidth: 200,
+            minHeight: 200,
         },
-        'p6': {
+        p6: {
             id: 'p6',
             name: 'Pane Left 3',
             content: 'Pane Left 3 Content',
             groupId: 'pg2',
+            minWidth: 200,
+            minHeight: 200,
         },
     },
 };
 
 export function dockReducer(state: IDockState, action: ITabAction): IDockState {
     switch (action.type) {
-        case 'CHANGE_ACTIVE_PANE': {
+        case 'DK_DOCK__CHANGE_ACTIVE_PANE': {
             return {
                 ...state,
                 paneGroups: {
@@ -173,7 +187,7 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
             };
         }
 
-        case 'CLOSE_PANE': {
+        case 'DK_DOCK__CLOSE_PANE': {
             return {
                 ...state,
                 panes: removeByKey(state.panes, action.paneId),
@@ -190,7 +204,7 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
             };
         }
 
-        case 'CLOSE_GROUP': {
+        case 'DK_DOCK__CLOSE_GROUP': {
             return {
                 ...state,
                 docks: {
@@ -205,7 +219,7 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
             };
         }
 
-        case 'CLOSE_DOCK': {
+        case 'DK_DOCK__CLOSE_DOCK': {
             return {
                 ...state,
                 docks: {
@@ -216,7 +230,34 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
                     },
                 },
                 dockContents: removeByKey(state.dockContents, action.parentDockContentId),
-            }
+            };
+        }
+
+        case 'DK_DOCK__CREATE_PANE': {
+            return {
+                ...state,
+                panes: {
+                    ...state.panes,
+                    [action.paneId]: {
+                        id: action.paneId,
+                        name: action.paneName,
+                        content: action.paneContent,
+                        groupId: action.groupId,
+                        minWidth: 200,
+                        minHeight: 200,
+                    },
+                },
+                paneGroups: {
+                    ...state.paneGroups,
+                    [action.groupId]: {
+                        ...state.paneGroups[action.groupId],
+                        paneIds: [
+                            ...state.paneGroups[action.groupId].paneIds,
+                            action.paneId,
+                        ],
+                    },
+                },
+            };
         }
 
         default: assertNever(action);
@@ -230,13 +271,16 @@ export type ITabAction = (
     | ReturnType<typeof dockActions.closePane>
     | ReturnType<typeof dockActions.closeGroup>
     | ReturnType<typeof dockActions.closeDock>
+    | ReturnType<typeof dockActions.createPane>
 );
+
+let nextPaneId = 100;
 
 export const dockActions = {
 
     changeActivePane(paneIndex: number, groupId: string) {
         return {
-            type: 'CHANGE_ACTIVE_PANE' as const,
+            type: 'DK_DOCK__CHANGE_ACTIVE_PANE' as const,
             paneIndex,
             groupId,
         };
@@ -244,7 +288,7 @@ export const dockActions = {
 
     closePane(paneIndex: number, paneId: string, groupId: string) {
         return {
-            type: 'CLOSE_PANE' as const,
+            type: 'DK_DOCK__CLOSE_PANE' as const,
             paneIndex,
             paneId,
             groupId,
@@ -253,7 +297,7 @@ export const dockActions = {
 
     closeGroup(groupId: string, dockId: string, dockContentId: string) {
         return {
-            type: 'CLOSE_GROUP' as const,
+            type: 'DK_DOCK__CLOSE_GROUP' as const,
             groupId,
             dockId,
             dockContentId,
@@ -262,10 +306,20 @@ export const dockActions = {
 
     closeDock(dockId: string, parentDockId: string, parentDockContentId: string) {
         return {
-            type: 'CLOSE_DOCK' as const,
+            type: 'DK_DOCK__CLOSE_DOCK' as const,
             dockId,
             parentDockId,
             parentDockContentId,
+        };
+    },
+
+    createPane(groupId: string, paneName: string, paneContent: string) {
+        return {
+            type: 'DK_DOCK__CREATE_PANE' as const,
+            paneId: `p${nextPaneId++}`,
+            paneName,
+            paneContent,
+            groupId,
         };
     },
 };

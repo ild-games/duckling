@@ -10,13 +10,11 @@ import { IDockContent } from './dock';
             [id]='content.childId'>
         </dk-dock>
 
-        <div 
+        <dk-pane-group 
             *ngIf='isPaneGroup'
-            class='pane-group-container'>
-
-            <dk-pane-group [id]='content.childId'>
-            </dk-pane-group>
-        </div>
+            class='pane-group-container'
+            [id]='content.childId'>
+        </dk-pane-group>
     `
 })
 export class DockContentsComponent {

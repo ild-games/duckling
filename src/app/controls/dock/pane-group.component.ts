@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IDucklingState } from 'src/app/main.state';
 import { Observable } from 'rxjs';
-import { IPaneGroup, IPane, dockContentId as generateDockContentId } from './dock';
+import { IPaneGroup, IPane, generateDockContentId } from './dock';
 import { dockActions } from './dock.state';
 
 @Component({
@@ -16,10 +16,12 @@ import { dockActions } from './dock.state';
             <dk-pane-tab
                 *ngFor='let pane of panes(paneGroup$ | async); index as i'
                 [isActive]='isActivePane(i, paneGroup$ | async)'
+                [isLastTab]='isLastPane(i, paneGroup$ | async)'
                 [canClose]='true'
+                [name]='pane.name'
                 (tabClick)='changeActivePane(i)'
                 (closeClick)='closePane(i, pane.id)'
-                [name]='pane.name'>
+                (addPaneClick)='addPane()'>
             </dk-pane-tab>
         </ul>
         <section
@@ -55,6 +57,10 @@ export class PaneGroupComponent implements OnInit {
         return paneGroup.activePaneIndex === paneIndex;
     }
 
+    isLastPane(paneIndex: number, paneGroup: IPaneGroup): boolean {
+        return paneIndex === paneGroup.paneIds.length - 1;
+    }
+
     changeActivePane(newActivePaneIndex: number) {
         this._ngRedux.dispatch(dockActions.changeActivePane(newActivePaneIndex, this.id));
     }
@@ -81,6 +87,13 @@ export class PaneGroupComponent implements OnInit {
         if (!this._isActivePaneValid()) {
             this._ngRedux.dispatch(dockActions.changeActivePane(lastPaneIndex, this.id));
         }
+    }
+
+    addPane() {
+        this._ngRedux.dispatch(dockActions.createPane(this.id, 'New Pane', 'New Pane Content'));
+
+        const lastPaneIndex = this._ngRedux.getState().dock.paneGroups[this.id].paneIds.length - 1;
+        this._ngRedux.dispatch(dockActions.changeActivePane(lastPaneIndex, this.id));
     }
 
     private _isActivePaneValid(): boolean {

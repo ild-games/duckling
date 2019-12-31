@@ -1,7 +1,11 @@
-@import 'mixins';
+@import 'mixins.scss';
 
 :host {
     @include fill;
 
     display: block;
+}
+
+dk-dock {
+    padding: 8px;
 }

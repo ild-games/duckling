@@ -18,11 +18,13 @@ $border-radius: 5px;
     border-top: solid 1px $nav-background-color;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .content {
     flex: 1 0;
-    height: 100%;
     border-left: solid 1px white;
     border-right: solid 1px white;
     border-bottom: solid 1px white;

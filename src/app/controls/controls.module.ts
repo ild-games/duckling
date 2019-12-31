@@ -6,9 +6,11 @@ import { DockComponent } from './dock/dock.component';
 import { PaneTabComponent } from './dock/pane-tab.component';
 import { PaneGroupComponent } from './dock/pane-group.component';
 import { DockContentsComponent } from './dock/dock-contents.component';
+import { DockDividerComponent } from './dock/dock-divider.component';
 
 const CONTROL_DECLARACTIONS = [
     DockComponent,
+    DockDividerComponent,
     DockContentsComponent,
     PaneTabComponent,
     PaneGroupComponent,
