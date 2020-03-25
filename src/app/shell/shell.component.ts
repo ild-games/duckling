@@ -9,7 +9,13 @@ import { dkSelect } from '../utils/state';
     selector: 'dk-shell',
     styleUrls: ['./shell.component.scss'],
     template: `
+        <dk-splash-screen
+            *ngIf='isShowSplashScreen'
+            (projectOpened)='onProjectOpened($event)'>
+        </dk-splash-screen>
+
         <dk-dock
+            *ngIf='!isShowSplashScreen'
             [id]='rootDockId$ | async'>
         </dk-dock>
     `
@@ -42,5 +48,9 @@ export class ShellComponent implements OnInit, OnDestroy {
 
     private _changeTheme(themeName: ColorTheme) {
         activateColorTheme(themeName);
+    }
+
+    get isShowSplashScreen() {
+        return !this.openedProject;
     }
 }

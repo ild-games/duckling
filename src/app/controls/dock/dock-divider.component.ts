@@ -13,12 +13,12 @@ export class DockDividerComponent {
     @Input() orientation: 'horizontal' | 'vertical';
 
     get cssClasses(): string {
-        let classes = [ 'divider' ];
+        const classes = [ 'divider' ];
         switch(this.orientation) {
             case 'horizontal':
                 classes.push('horizontal-divider');
                 break;
-    
+
             case 'vertical':
                 classes.push('vertical-divider');
                 break;

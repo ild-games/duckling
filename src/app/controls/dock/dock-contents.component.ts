@@ -10,7 +10,7 @@ import { IDockContent } from './dock';
             [id]='content.childId'>
         </dk-dock>
 
-        <dk-pane-group 
+        <dk-pane-group
             *ngIf='isPaneGroup'
             class='pane-group-container'
             [id]='content.childId'>
