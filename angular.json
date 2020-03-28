@@ -23,8 +23,13 @@
                             "src/favicon.ico",
                             "src/assets"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/styles"
+                            ]
+                        },
                         "styles": [
-                            "src/styles.css",
+                            "src/styles.scss",
                             "node_modules/@clr/ui/clr-ui.min.css",
                             "node_modules/@clr/icons/clr-icons.min.css"
                         ],
@@ -94,8 +99,13 @@
                             "src/favicon.ico",
                             "src/assets"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/styles"
+                            ]
+                        },
                         "styles": [
-                            "src/styles.css",
+                            "src/styles.scss",
                             "node_modules/@clr/ui/clr-ui.min.css",
                             "node_modules/@clr/icons/clr-icons.min.css"
                         ],

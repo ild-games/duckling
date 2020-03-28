@@ -1,0 +1,16 @@
+@import 'colors.scss';
+
+:host {
+    height: 100%;
+    display: flex;
+    background-color: #aaa;
+
+    .left-area, .right-area, .middle-area, .top-area, .bottom-area {
+        flex: 1 1 100%;
+    }
+
+    .middle-area {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -1,5 +1,11 @@
-.content {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
+@import 'mixins.scss';
+
+:host {
+    @include fill;
+
+    display: block;
+}
+
+dk-dock {
+    padding: 8px;
 }

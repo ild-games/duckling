@@ -1,0 +1,51 @@
+$divider-size: 8px;
+
+:host {
+    display: block;
+    flex: 0 0 $divider-size;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+}
+
+.divider:hover {
+    .divider-indicator {
+        margin: 0 auto;
+        background-color: #eee;
+        border: 1px solid #eee;
+        border-radius: 1px;
+    }
+}
+
+.vertical-divider {
+    width: $divider-size;
+    min-width: $divider-size;
+    height: 100%;
+}
+
+.vertical-divider:hover {
+    cursor: ew-resize;
+
+    .divider-indicator {
+        width: 0;
+        height: 75px;
+    }
+}
+
+.horizontal-divider {
+    flex: 0 0 $divider-size;
+    height: $divider-size;
+    min-height: $divider-size;
+    width: 100%;
+}
+
+.horizontal-divider:hover {
+    cursor: ns-resize;
+
+    .divider-indicator {
+        width: 75px;
+        height: 0;
+    }
+}

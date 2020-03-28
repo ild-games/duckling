@@ -9,10 +9,10 @@ import { SplashScreenModule } from '../splashscreen/splash-screen.module';
         SplashScreenModule,
     ],
     declarations: [
-        ShellComponent
+        ShellComponent,
     ],
     exports: [
-        ShellComponent
+        ShellComponent,
     ],
 })
 export class ShellModule {

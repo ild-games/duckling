@@ -2,6 +2,7 @@ import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ShellComponent } from './shell.component';
 import { SplashScreenModule } from '../splashscreen/splash-screen.module';
 import { ControlsModule } from '../controls/controls.module';
+import { NgReduxModule } from '@angular-redux/store';
 
 describe('ShellComponent', () => {
     let component: ShellComponent;
@@ -11,7 +12,8 @@ describe('ShellComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 SplashScreenModule,
-                ControlsModule
+                ControlsModule,
+                NgReduxModule
             ],
             declarations: [
                 ShellComponent,
