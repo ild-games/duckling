@@ -17,7 +17,7 @@ Then('the project list is shown', async () => {
 After(async () => {
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
 
-    for (let log of logs) {
+    for (const log of logs) {
         notEqual(log.level, logging.Level.SEVERE);
     }
 });
