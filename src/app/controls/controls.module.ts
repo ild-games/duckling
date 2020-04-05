@@ -7,6 +7,9 @@ import { PaneTabComponent } from './dock/pane-tab.component';
 import { PaneGroupComponent } from './dock/pane-group.component';
 import { DockContentsComponent } from './dock/dock-contents.component';
 import { DockDividerComponent } from './dock/dock-divider.component';
+import { ColorThemeWidgetComponent } from './color-theme-widget.component';
+import { VerticalHyperLinkComponent } from './nav/vertical-hyperlink.component';
+import { VerticalNavComponent } from './nav/vertical-nav.component';
 
 const CONTROL_DECLARACTIONS = [
     DockComponent,
@@ -14,6 +17,9 @@ const CONTROL_DECLARACTIONS = [
     DockContentsComponent,
     PaneTabComponent,
     PaneGroupComponent,
+    ColorThemeWidgetComponent,
+    VerticalHyperLinkComponent,
+    VerticalNavComponent,
 ];
 
 @NgModule({

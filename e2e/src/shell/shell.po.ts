@@ -1,4 +1,4 @@
-import { browser, by, element, ElementArrayFinder } from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder } from 'protractor';
 
 export class ShellPage {
     projectModels: string[] = [
@@ -25,7 +25,28 @@ export class ShellPage {
         return projectTitles;
     }
 
+    public async openFirstProject() {
+        const projects = this.getProjectListElements();
+        await projects.get(0).click();
+    }
+
+    public async hoverOverColorThemeWidget() {
+        const widget = this.getColorThemeWidget();
+
+        await browser.actions().mouseMove(widget).perform();
+    }
+
     public getProjectListElements(): ElementArrayFinder {
         return element.all(by.css('dk-shell dk-splash-screen clr-vertical-nav a'));
+    }
+
+    public getColorThemeWidget(): ElementFinder {
+        return element(by.css('dk-color-theme-widget'));
+    }
+
+    public getColorThemeIcon(): ElementFinder {
+        const widget: ElementFinder = this.getColorThemeWidget();
+
+        return widget.element(by.css('clr-icon'));
     }
 }

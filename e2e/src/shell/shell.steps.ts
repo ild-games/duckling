@@ -1,23 +1,47 @@
-import { Given, Then, After } from 'cucumber';
+import { Given, Then, When } from 'cucumber';
 import { ShellPage } from './shell.po';
-import { deepEqual, notEqual } from 'assert';
-import { browser, logging } from 'protractor';
+import * as chai from 'chai';
+import { hasClass } from '../protractor-extensions';
+const expect = chai.expect;
 
 const page = new ShellPage();
 
-Given('the application is opened', async () => {
+Given('I have opened the project selection screen', async () => {
     await page.navigateTo();
 });
 
-Then('the project list is shown', async () => {
-    const projects = await page.getProjectList();
-    deepEqual(page.projectModels, projects);
+When('I open the application', async () => {
+    await page.navigateTo();
 });
 
-After(async () => {
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+Then('I can see the project list', async () => {
+    const projects = await page.getProjectList();
 
-    for (const log of logs) {
-        notEqual(log.level, logging.Level.SEVERE);
-    }
+    expect(projects).to.deep.equal(page.projectModels);
+});
+
+When('I open a project', async () => {
+    await page.openFirstProject();
+});
+
+Then('I can see the change-theme widget', async () => {
+    const colorThemeWidgetElement = page.getColorThemeWidget();
+
+    expect(await colorThemeWidgetElement.isPresent()).to.be.true;
+});
+
+Given('The color theme widget starts as a dark color', async () => {
+    const icon = page.getColorThemeIcon();
+
+    expect(await hasClass(icon, 'is-solid')).to.be.true;
+});
+
+When('I hover over the widget', async () => {
+    await page.hoverOverColorThemeWidget();
+});
+
+Then('The color theme widget changes to a light color', async () => {
+    const icon = page.getColorThemeIcon();
+
+    expect(await hasClass(icon, 'is-solid')).to.be.false;
 });

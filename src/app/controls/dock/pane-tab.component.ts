@@ -49,9 +49,9 @@ export class PaneTabComponent {
     @Input() canClose = true;
     @Input() isLastTab = false;
     @Input() name: string;
-    @Output() tabClick = new EventEmitter();
-    @Output() closeClick = new EventEmitter();
-    @Output() addPaneClick = new EventEmitter();
+    @Output() tabClick = new EventEmitter<void>();
+    @Output() closeClick = new EventEmitter<void>();
+    @Output() addPaneClick = new EventEmitter<void>();
 
     private _isCloseButtonHovered = false;
     private _isAddButtonHovered = false;
@@ -65,15 +65,15 @@ export class PaneTabComponent {
     }
 
     onCloseClick() {
-        this.closeClick.emit(null);
+        this.closeClick.emit();
     }
 
     onTabClick() {
-        this.tabClick.emit(null);
+        this.tabClick.emit();
     }
 
     onAddPaneClick() {
-        this.addPaneClick.emit(null);
+        this.addPaneClick.emit();
     }
 
     onMouseEnterAddButton() {

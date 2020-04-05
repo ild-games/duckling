@@ -1,0 +1,15 @@
+a {
+    cursor: pointer;
+    user-select: none;
+}
+
+.content {
+    .nav-link {
+        color: var(--dk-typography-default);
+    }
+
+    .nav-link:hover {
+        color: var(--dk-typography-default);
+        background-color: var(--dk-row-hover);
+    }
+}

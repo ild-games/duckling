@@ -18,6 +18,9 @@ import { dkSelect } from '../utils/state';
             *ngIf='!isShowSplashScreen'
             [id]='rootDockId$ | async'>
         </dk-dock>
+
+        <dk-color-theme-widget>
+        </dk-color-theme-widget>
     `
 })
 export class ShellComponent implements OnInit, OnDestroy {

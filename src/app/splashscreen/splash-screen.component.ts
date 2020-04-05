@@ -5,14 +5,14 @@ import { ProjectSerializerService, ProjectModel } from './project-serializer.ser
     selector: 'dk-splash-screen',
     styleUrls: ['./splash-screen.component.scss'],
     template: `
-        <clr-vertical-nav class='left-content'>
-            <a
-                clrVerticalNavLink
+        <dk-vertical-nav class='left-content'>
+            <dk-vertical-hyperlink
                 *ngFor='let project of projects'
                 (click)='openProject({title: project.title})'>
+
                 {{project.title}}
-            </a>
-        </clr-vertical-nav>
+            </dk-vertical-hyperlink>
+        </dk-vertical-nav>
     `
 })
 export class SplashScreenComponent implements OnInit {

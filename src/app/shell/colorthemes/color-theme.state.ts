@@ -5,7 +5,7 @@ export interface IColorThemeState {
 }
 
 export const defaultColorThemeState: IColorThemeState = {
-    activeColorTheme: 'light',
+    activeColorTheme: 'dark',
 };
 
 export function colorThemeReducer(state: IColorThemeState, action: IColorThemeAction): IColorThemeState {
