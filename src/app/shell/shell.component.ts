@@ -1,23 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ColorTheme, activate as activateColorTheme } from './colorthemes/color-theme';
+import { ColorTheme } from './colorthemes/color-theme';
 import { Subscription, Observable } from 'rxjs';
 import { NgRedux } from '@angular-redux/store';
 import { IDucklingState } from '../main.state';
 import { dkSelect } from '../utils/state';
+import { ColorThemeService } from './colorthemes/color-theme.service';
 
 @Component({
     selector: 'dk-shell',
     styleUrls: ['./shell.component.scss'],
     template: `
-        <dk-splash-screen
-            *ngIf='isShowSplashScreen'
-            (projectOpened)='onProjectOpened($event)'>
-        </dk-splash-screen>
+        <dk-masthead>
+        </dk-masthead>
 
-        <dk-dock
-            *ngIf='!isShowSplashScreen'
-            [id]='rootDockId$ | async'>
-        </dk-dock>
+        <div class='content'>
+            <dk-splash-screen
+                *ngIf='isShowSplashScreen'
+                (projectOpened)='onProjectOpened($event)'>
+            </dk-splash-screen>
+
+            <dk-dock
+                *ngIf='!isShowSplashScreen'
+                [id]='rootDockId$ | async'>
+            </dk-dock>
+        </div>
 
         <dk-color-theme-widget>
         </dk-color-theme-widget>
@@ -32,6 +38,7 @@ export class ShellComponent implements OnInit, OnDestroy {
 
     constructor(
         private _ngRedux: NgRedux<IDucklingState>,
+        private _colorTheme: ColorThemeService,
     ) {
     }
 
@@ -50,7 +57,7 @@ export class ShellComponent implements OnInit, OnDestroy {
     }
 
     private _changeTheme(themeName: ColorTheme) {
-        activateColorTheme(themeName);
+        this._colorTheme.activate(themeName);
     }
 
     get isShowSplashScreen() {

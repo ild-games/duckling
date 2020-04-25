@@ -15,7 +15,7 @@ import { Component, EventEmitter, ViewEncapsulation, Output } from '@angular/cor
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class VerticalHyperLinkComponent {
+export class VerticalHyperlinkComponent {
     @Output() click = new EventEmitter<void>();
 
     onClick() {

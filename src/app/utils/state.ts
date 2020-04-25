@@ -8,8 +8,15 @@ export function dkSelect<T>(selector?: Selector<IDucklingState, T>, comparator?:
 export function assertNever(_: never) {
 }
 
-type ObjectHash<ValueType> = { [objKey in (string | number)]: ValueType };
-export function removeByKey<ValueType>(object: ObjectHash<ValueType>, key: (string | number)): ObjectHash<ValueType> {
-    const { [key]: _removedValue, ...objectWithRemovedValue } = object;
+export function immutableDelete<T extends {}, U extends (string | number)>(object: T, key: U): Omit<T, U> {
+    if (!object) {
+        return object;
+    }
+
+    const {
+        [key]: _removedValue,
+        /* istanbul ignore next */ ...objectWithRemovedValue 
+    } = object;
+
     return objectWithRemovedValue;
 }

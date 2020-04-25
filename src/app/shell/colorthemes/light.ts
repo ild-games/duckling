@@ -25,4 +25,9 @@ export const lightTheme: IColorThemeSpecification = {
     //#region Buttons
     neutralButton: 'hsl(198, 0%, 27%)',
     //#endregion
+
+    //#region Masthead
+    mastheadBackground: '#00364d',
+    mastheadIcon: '#fafafa',
+    //#endregion
 };

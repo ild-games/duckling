@@ -1,0 +1,45 @@
+.header-content {
+    background-color: var(--dk-masthead-background);
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: 5px minmax(0, 1fr) 5px;
+    width: 100%;
+    height: 100%;
+
+    .title {
+        height: 100%;
+        grid-row-start: 2;
+        grid-column-start: 1;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+
+        span {
+            font-size: .8rem;
+            font-weight: 400;
+        }
+    }
+
+    .command-palette-container {
+        border-radius: 5px;
+        grid-row-start: 2;
+        grid-column-start: 2;
+        display: flex;
+        justify-content: center;
+        background-color: var(--dk-background-primary);
+
+        dk-command-palette {
+            width: 100%;
+        }
+    }
+
+    .command-palette-container:focus-within {
+        box-shadow: 0px 0px 13px 4px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        height: var(--dk-command-palette-height)
+    }
+
+    .right {
+        grid-row-start: 3;
+    }
+}

@@ -1,5 +1,6 @@
 import { lightTheme } from './light';
 import { darkTheme } from './dark';
+import { setCssVariable } from 'src/app/utils/css';
 
 export interface IColorThemeSpecification {
     //#region TODO REMOVE
@@ -25,7 +26,12 @@ export interface IColorThemeSpecification {
 
     //#region Buttons
     neutralButton: string;
-    ////#endregion
+    //#endregion
+
+    //#region Masthead
+    mastheadBackground: string;
+    mastheadIcon: string;
+    //#endregion
 }
 
 export type ColorTheme = (
@@ -39,10 +45,6 @@ const themes: { [key in ColorTheme]: IColorThemeSpecification } = {
 };
 
 export function activate(colorTheme: ColorTheme) {
-    function setCssVariable(propertyName: string, value: any) {
-        document.documentElement.style.setProperty(propertyName, value);
-    }
-
     const spec = themes[colorTheme];
 
     //#region TODO REMOVE
@@ -68,5 +70,10 @@ export function activate(colorTheme: ColorTheme) {
 
     //#region Buttons
     setCssVariable('--dk-neutral-button', spec.neutralButton);
+    //#endregion
+
+    //#region Masthead
+    setCssVariable('--dk-masthead-background', spec.mastheadBackground);
+    setCssVariable('--dk-masthead-icon', spec.mastheadIcon);
     //#endregion
 }

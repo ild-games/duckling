@@ -25,4 +25,9 @@ export const darkTheme: IColorThemeSpecification = {
     //#region Buttons
     neutralButton: 'hsl(198, 0%, 95%)',
     //#endregion
+
+    //#region Masthead
+    mastheadBackground: '#0F171C',
+    mastheadIcon: '#E9ECEF',
+    //#endregion
 };

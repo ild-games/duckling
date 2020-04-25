@@ -8,8 +8,9 @@ import { PaneGroupComponent } from './dock/pane-group.component';
 import { DockContentsComponent } from './dock/dock-contents.component';
 import { DockDividerComponent } from './dock/dock-divider.component';
 import { ColorThemeWidgetComponent } from './color-theme-widget.component';
-import { VerticalHyperLinkComponent } from './nav/vertical-hyperlink.component';
+import { VerticalHyperlinkComponent } from './nav/vertical-hyperlink.component';
 import { VerticalNavComponent } from './nav/vertical-nav.component';
+import { UtilsModule } from '../utils/utils.module';
 
 const CONTROL_DECLARACTIONS = [
     DockComponent,
@@ -18,7 +19,7 @@ const CONTROL_DECLARACTIONS = [
     PaneTabComponent,
     PaneGroupComponent,
     ColorThemeWidgetComponent,
-    VerticalHyperLinkComponent,
+    VerticalHyperlinkComponent,
     VerticalNavComponent,
 ];
 
@@ -27,6 +28,7 @@ const CONTROL_DECLARACTIONS = [
         ClarityModule,
         FormsModule,
         CommonModule,
+        UtilsModule,
     ],
     declarations: [
         CONTROL_DECLARACTIONS,

@@ -1,0 +1,56 @@
+$itemHeight: 40px;
+
+.container {
+    height: var(--dk-command-palette-height);
+    width: 100%;
+    display: grid;
+    grid-template-rows: 50px minmax(0, 1fr);
+
+    .first-row {
+        display: grid;
+        grid-template-rows: 5px $itemHeight 5px;
+        grid-template-columns: 48px 1fr 10px;
+        background-color: rgba($color: #000000, $alpha: 0.0);
+
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-column-start: 1;
+            grid-row-start: 2;
+
+            clr-icon {
+                color: var(--dk-typography-understated);
+            }
+        }
+
+        .icon:hover {
+            cursor: pointer;
+        }
+
+        .command-input {
+            background-color: rgba($color: #000000, $alpha: 0.0);
+            color: var(--dk-typography-default);
+            grid-column-start: 2;
+            grid-row-start: 2;
+            border: 0;
+            outline: none;
+        }
+
+        .command-input:hover:not(:focus) {
+            cursor: pointer;
+        }
+    }
+}
+
+.container:focus-within {
+    .expanded-rows {
+        display: inherit;
+    }
+}
+
+.container:not(:focus-within) {
+    .expanded-rows {
+        display: none;
+    }
+}
