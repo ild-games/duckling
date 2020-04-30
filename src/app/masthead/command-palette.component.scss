@@ -1,10 +1,8 @@
 $itemHeight: 40px;
 
 .container {
-    height: var(--dk-command-palette-height);
+    max-height: var(--dk-command-palette-height);
     width: 100%;
-    display: grid;
-    grid-template-rows: 50px minmax(0, 1fr);
 
     .first-row {
         display: grid;
@@ -41,11 +39,40 @@ $itemHeight: 40px;
             cursor: pointer;
         }
     }
+
+    .expanded-rows {
+        padding: 5px 0;
+        max-height: 450px;
+        overflow: auto;
+
+        .queried-row {
+            padding: 0 10px;
+            color: var(--dk-typography-understated);
+            flex: 0 0 23px;
+            line-height: 23px;
+            user-select: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .queried-row:hover {
+            background-color: var(--dk-row-hover);
+        }
+
+        .quick-select-row {
+            background-color: var(--dk-row-selection);
+        }
+
+        .quick-select-row:hover {
+            background-color: var(--dk-row-selection);
+        }
+    }
 }
 
 .container:focus-within {
     .expanded-rows {
-        display: inherit;
+        display: flex;
+        flex-direction: column;
     }
 }
 

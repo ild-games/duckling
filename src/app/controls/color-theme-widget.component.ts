@@ -39,6 +39,14 @@ export class ColorThemeWidgetComponent implements OnInit, OnDestroy {
             name: 'Toggle light/dark color scheme',
             callback: () => this._toggleColorTheme(),
         });
+        this._changeColorThemeCommandId = this._commandService.register({
+            name: 'Toggle your schemes',
+            callback: () => this._toggleColorTheme(),
+        });
+        this._changeColorThemeCommandId = this._commandService.register({
+            name: 'Colors are scholarly',
+            callback: () => this._toggleColorTheme(),
+        });
     }
 
     ngOnDestroy() {

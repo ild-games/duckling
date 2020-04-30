@@ -70,4 +70,34 @@ describe('CommandService', () => {
 
         expect(retrieved).toEqual([command2, command1, command3]);
     });
+
+    it('returns matching commands in alphabetical order if queried with an empty search', () => {
+        const command1 = {
+            name: 'a__b__c',
+            callback: () => {}
+        };
+        commandService.register(command1);
+
+        const command2 = {
+            name: 'abc',
+            callback: () => {}
+        };
+        commandService.register(command2);
+
+        const command3 = {
+            name: 'xyz',
+            callback: () => {}
+        };
+        commandService.register(command3);
+
+        const command4 = {
+            name: 'xyzabc',
+            callback: () => {}
+        };
+        commandService.register(command4);
+
+        const retrieved = commandService.search('abc');
+
+        expect(retrieved).toEqual([command2, command4, command1]);
+    });
 });

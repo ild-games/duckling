@@ -10,7 +10,7 @@ Injectable()
 export class CommandService {
     private _commands: ICommand[] = [];
     private _nextId = 0;
-    private _fuzzySearch = new (FuzzySearch as any).default(this._commands, [ 'name' ], { sort: true });
+    private _fuzzySearch = this._createFuzzySearch();
 
     register(command: ICommand): number { 
         const registeredId = this._nextId;
@@ -37,5 +37,14 @@ export class CommandService {
         }
 
         return results;
+    }
+
+    private _createFuzzySearch() {
+        return new (FuzzySearch as any).default(
+            this._commands,
+            [ 'name' ],
+            { 
+                sort: true
+            });
     }
 }

@@ -36,13 +36,13 @@ export class MastheadComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this._commandPaletteHandlerId = this._window.subscribeKeyUpHandler((event) => {
+        this._commandPaletteHandlerId = this._window.subscribeKeyDownHandler((event) => {
             this._commandPaletteShortcutHandler(event);
         });
     }
 
     ngOnDestroy() {
-        this._window.unsubscribeKeyUpHandler(this._commandPaletteHandlerId);
+        this._window.unsubscribeKeyDownHandler(this._commandPaletteHandlerId);
     }
 
     private _commandPaletteShortcutHandler(event: KeyboardEvent) {
@@ -55,7 +55,6 @@ export class MastheadComponent implements OnInit, OnDestroy {
 
     private _isCommandPaletteShortcut(event: KeyboardEvent) {
         return (
-            event.key.toLowerCase() === 'p' && 
             event.altKey
         );
     }
