@@ -42,14 +42,14 @@ $itemHeight: 40px;
 
     .expanded-rows {
         padding: 5px 0;
-        max-height: 450px;
+        max-height: var(--dk-command-palette-expanded-rows-max-height);
         overflow: auto;
 
         .queried-row {
             padding: 0 10px;
             color: var(--dk-typography-understated);
-            flex: 0 0 23px;
-            line-height: 23px;
+            flex: 0 0 var(--dk-command-palette-row-height);
+            line-height: var(--dk-command-palette-row-height);
             user-select: none;
             cursor: pointer;
             text-decoration: none;

@@ -46,14 +46,26 @@ import { WindowService } from '../utils/window.service';
 export class CommandPaletteComponent {
     @ViewChild('input') input: ElementRef;
     queriedRows: ICommand[] = [];
+
     private _quickSelectRow = 0;
     private _keyDownSubscription: number;
     private _focused = false;
+    private _rowHeight = 23;
+    private _queryRowHeight = 50;
+    private _queryRowExpandedHeight = 60;
+    private _maxExpandedHeight = 500;
 
     constructor(
         private _commandService: CommandService,
         private _windowService: WindowService,
     ) {
+        setCssVariable(
+            '--dk-command-palette-row-height',
+            `${this._rowHeight}px`);
+
+        setCssVariable(
+            '--dk-command-palette-expanded-rows-max-height',
+            `${this._maxExpandedHeight - this._queryRowHeight}px`);
     }
 
     focus() {
@@ -93,6 +105,13 @@ export class CommandPaletteComponent {
         command.callback();
     }
 
+    queryRowCssClasses(rowIndex: number): string {
+        return [
+            'queried-row',
+            rowIndex === this._quickSelectRow ? 'quick-select-row' : '',
+        ].join(' ');
+    }
+
     private _search(query: string) {
         this.queriedRows = this._commandService.search(query);
 
@@ -106,18 +125,11 @@ export class CommandPaletteComponent {
 
     private _setHeight() {
         let newHeight = this.queriedRows.length === 0 
-            ? 50
-            : 60 + (23 * this.queriedRows.length);
-        newHeight = Math.min(newHeight, 500)
+            ? this._queryRowHeight
+            : this._queryRowExpandedHeight + (this._rowHeight * this.queriedRows.length);
+        newHeight = Math.min(newHeight, this._maxExpandedHeight)
 
         setCssVariable('--dk-command-palette-height', `${newHeight}px`);
-    }
-
-    queryRowCssClasses(rowIndex: number): string {
-        return [
-            'queried-row',
-            rowIndex === this._quickSelectRow ? 'quick-select-row' : '',
-        ].join(' ');
     }
 
     private _keyDownWhileActive(event: KeyboardEvent): void {
