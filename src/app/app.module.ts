@@ -10,7 +10,7 @@ import { ControlsModule } from './controls/controls.module';
 import { SplashScreenModule } from './splashscreen/splash-screen.module';
 import { IDucklingState, mainReducer } from './main.state';
 import { StoreEnhancer } from 'redux';
-import { CommandService } from './command/command.service';
+import { CommandModule } from './command/command.module';
 
 @NgModule({
     imports: [
@@ -20,13 +20,13 @@ import { CommandService } from './command/command.service';
         BrowserModule,
         BrowserAnimationsModule,
         NgReduxModule,
+        CommandModule,
     ],
     bootstrap: [
         ShellComponent
     ],
     providers: [
         EnvironmentService,
-        CommandService,
     ],
 })
 export class AppModule {
