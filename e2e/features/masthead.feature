@@ -19,7 +19,7 @@ Feature: Masthead
 
     Scenario: Quick access
         Given the user is not typing something
-        When the user presses the '/' key
+        When the user presses the 'Alt' key
         Then the masthead recieves focus
 
     Scenario: Multiple result types
