@@ -1,4 +1,4 @@
-import { WindowService } from "./window.service";
+import { WindowService } from './window.service';
 
 describe('WindowService', () => {
     let service: WindowService;
@@ -15,7 +15,7 @@ describe('WindowService', () => {
         };
 
         const handlerId = service.subscribeKeyDownHandler(keyDownEvent);
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'p'}));
         expect(spy).toHaveBeenCalled();
 
         service.unsubscribeKeyDownHandler(handlerId);
@@ -29,7 +29,7 @@ describe('WindowService', () => {
         };
 
         const handlerId = service.subscribeKeyUpHandler(keyUpEvent);
-        window.dispatchEvent(new KeyboardEvent('keyup', {'key': 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keyup', {key: 'p'}));
         expect(spy).toHaveBeenCalled();
 
         service.unsubscribeKeyUpHandler(handlerId);
@@ -43,7 +43,7 @@ describe('WindowService', () => {
         };
 
         const handlerId = service.subscribeKeyPressHandler(keyPressEvent);
-        window.dispatchEvent(new KeyboardEvent('keypress', {'key': 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keypress', {key: 'p'}));
         expect(spy).toHaveBeenCalled();
 
         service.unsubscribeKeyPressHandler(handlerId);
@@ -70,9 +70,9 @@ describe('WindowService', () => {
         const handlerIdDownTwo = service.subscribeKeyDownHandler(keyDownEventTwo);
         const handlerIdUpOne = service.subscribeKeyUpHandler(keyUpEventOne);
 
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'p'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'p'}));
-        window.dispatchEvent(new KeyboardEvent('keyup', {'key': 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keyup', {key: 'p'}));
 
         expect(spyDownOne).toHaveBeenCalledTimes(2);
         expect(spyDownTwo).toHaveBeenCalledTimes(2);
@@ -91,13 +91,13 @@ describe('WindowService', () => {
         };
 
         const handlerId = service.subscribeKeyDownHandler(keyDownEvent);
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'p'}));
 
         expect(spy).toHaveBeenCalled();
 
         service.unsubscribeKeyDownHandler(handlerId);
 
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'p'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'p'}));
 
         expect(spy).toHaveBeenCalledTimes(1);
     });

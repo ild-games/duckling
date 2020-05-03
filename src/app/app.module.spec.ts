@@ -1,4 +1,4 @@
-import { async, TestBed } from "@angular/core/testing";
+import { async, TestBed } from '@angular/core/testing';
 import { AppModule } from './app.module';
 import { NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { Injectable } from '@angular/core';
@@ -28,7 +28,7 @@ describe('AppModule', () => {
         const fakeDevToolsEnhancer = (next: StoreCreator) => next;
         createTestBed({
             environmentServiceClass: FakeProductionEnvironmentService,
-            devToolsEnabled: false, 
+            devToolsEnabled: false,
             fakeDevToolsEnhancer,
         });
 
@@ -45,7 +45,7 @@ describe('AppModule', () => {
         const fakeDevToolsEnhancer = (next: StoreCreator) => next;
         createTestBed({
             environmentServiceClass: FakeProductionEnvironmentService,
-            devToolsEnabled: true, 
+            devToolsEnabled: true,
             fakeDevToolsEnhancer,
         });
 
@@ -62,7 +62,7 @@ describe('AppModule', () => {
         const fakeDevToolsEnhancer = (next: StoreCreator) => next;
         createTestBed({
             environmentServiceClass: FakeDevelopmentEnvironmentService,
-            devToolsEnabled: false, 
+            devToolsEnabled: false,
             fakeDevToolsEnhancer,
         });
 
@@ -79,7 +79,7 @@ describe('AppModule', () => {
         const fakeDevToolsEnhancer = (next: StoreCreator) => next;
         createTestBed({
             environmentServiceClass: FakeDevelopmentEnvironmentService,
-            devToolsEnabled: true, 
+            devToolsEnabled: true,
             fakeDevToolsEnhancer,
         });
 

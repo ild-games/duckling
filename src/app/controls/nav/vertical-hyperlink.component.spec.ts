@@ -27,10 +27,10 @@ describe('VerticalHyperlinkComponent', () => {
         expect(component).toBeDefined();
     });
 
-    it('should emit the click event event when onClick is invoked', () => {
-        spyOn(component.click, 'emit').and.callThrough();
+    it('should emit the clicked event event when onClick is invoked', () => {
+        spyOn(component.clicked, 'emit').and.callThrough();
         component.onClick();
 
-        expect(component.click.emit).toHaveBeenCalledTimes(1);
+        expect(component.clicked.emit).toHaveBeenCalledTimes(1);
     });
 });

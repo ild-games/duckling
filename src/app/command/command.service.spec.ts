@@ -1,4 +1,4 @@
-import { CommandService } from "./command.service";
+import { CommandService } from './command.service';
 
 describe('CommandService', () => {
     let commandService: CommandService;

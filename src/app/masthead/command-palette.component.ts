@@ -32,7 +32,7 @@ import { WindowService } from '../utils/window.service';
             </div>
 
             <div class='expanded-rows'>
-                <a 
+                <a
                     *ngFor='let row of queriedRows; let i = index'
                     class='{{queryRowCssClasses(i)}}'
                     (mousedown)='runCommand(row)'>
@@ -120,7 +120,7 @@ export class CommandPaletteComponent {
     }
 
     private _setHeight() {
-        let newHeight = this.queriedRows.length === 0 
+        let newHeight = this.queriedRows.length === 0
             ? this._queryRowHeight
             : this._queryRowExpandedHeight + (this._rowHeight * this.queriedRows.length);
         newHeight = Math.min(newHeight, this._maxExpandedHeight)

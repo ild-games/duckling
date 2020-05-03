@@ -50,7 +50,7 @@ module.exports = {
         // ORIGINAL tslint.json -> "component-selector": [true, "element", "app", "kebab-case"],
         '@angular-eslint/component-selector': [
           'error',
-          { type: 'element', prefix: 'app', style: 'kebab-case' },
+          { type: 'element', prefix: 'dk', style: 'kebab-case' },
         ],
 
         // ORIGINAL tslint.json -> "import-blacklist": [true, "rxjs/Rx"],
@@ -181,6 +181,8 @@ module.exports = {
 
         // ORIGINAL tslint.json -> "use-pipe-transform-interface": true
         '@angular-eslint/use-pipe-transform-interface': 'error',
+
+        'no-trailing-spaces': 'error',
       },
     },
     {
@@ -193,17 +195,20 @@ module.exports = {
 
         // ORIGINAL tslint.json -> "template-no-negated-async": true,
         '@angular-eslint/template/no-negated-async': 'error',
+
+        // ORIGINAL tslint.json -> "template-no-negated-async": true,
+        '@angular-eslint/template/no-any': 'error',
       },
     },
-    {
-      files: ['*.component.ts'],
-      parser: '@typescript-eslint/parser',
-      parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: 'module',
-      },
-      plugins: ['@angular-eslint/template'],
-      processor: '@angular-eslint/template/extract-inline-html',
-    },
+    // {
+    //   files: ['*.component.ts'],
+    //   parser: '@typescript-eslint/parser',
+    //   parserOptions: {
+    //     ecmaVersion: 2020,
+    //     sourceType: 'module',
+    //   },
+    //   plugins: ['@angular-eslint/template'],
+    //   processor: '@angular-eslint/template/extract-inline-html',
+    // },
   ],
 };

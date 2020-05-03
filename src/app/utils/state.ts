@@ -15,7 +15,7 @@ export function immutableDelete<T extends {}, U extends (string | number)>(objec
 
     const {
         [key]: _removedValue,
-        /* istanbul ignore next */ ...objectWithRemovedValue 
+        /* istanbul ignore next */ ...objectWithRemovedValue
     } = object;
 
     return objectWithRemovedValue;

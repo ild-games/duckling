@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ControlsModule } from '../controls/controls.module';
 import { CommandPaletteComponent } from './command-palette.component';
 import { CommandModule } from '../command/command.module';
@@ -83,7 +83,7 @@ describe('CommandPaletteComponent', () => {
         spyOn(component, '_processKeyAction' as any).and.callThrough();
 
         component.focus();
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'escape'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'escape'}));
 
         expect((component as any)._focused).toBeFalse();
         expect((component as any)._processKeyAction).not.toHaveBeenCalled();
@@ -95,14 +95,14 @@ describe('CommandPaletteComponent', () => {
 
         component.queriedRows = undefined;
         component.focus();
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect((component as any)._keyDownWhileActive).toHaveBeenCalledTimes(1);
         expect((component as any)._processKeyAction).not.toHaveBeenCalled();
 
         component.queriedRows = [];
         component.focus();
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect((component as any)._keyDownWhileActive).toHaveBeenCalledTimes(2);
         expect((component as any)._processKeyAction).not.toHaveBeenCalled();
@@ -118,7 +118,7 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(1);
         expect(spy).toHaveBeenCalled();
@@ -134,22 +134,22 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(1);
         expect(spy).toHaveBeenCalledTimes(1);
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowdown'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowdown'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(spy).toHaveBeenCalledTimes(2);
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowup'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowup'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(spy).toHaveBeenCalledTimes(3);
     });
@@ -168,8 +168,8 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowdown'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowdown'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(2);
         expect(spy).toHaveBeenCalled();
@@ -189,9 +189,9 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowdown'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowup'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowdown'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowup'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(2);
         expect(spy).toHaveBeenCalled();
@@ -211,9 +211,9 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowdown'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowup'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowdown'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowup'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(2);
         expect(spy).toHaveBeenCalled();
@@ -233,9 +233,9 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowdown'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowdown'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowdown'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowdown'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(2);
         expect(spy).toHaveBeenCalled();
@@ -255,8 +255,8 @@ describe('CommandPaletteComponent', () => {
 
         component.focus();
         component.search('Change color theme');
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'arrowup'}));
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'enter'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'arrowup'}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {key: 'enter'}));
 
         expect(component.queriedRows.length).toBe(2);
         expect(spy).toHaveBeenCalled();

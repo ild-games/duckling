@@ -8,7 +8,7 @@ import { ProjectSerializerService, ProjectModel } from './project-serializer.ser
         <dk-vertical-nav class='left-content'>
             <dk-vertical-hyperlink
                 *ngFor='let project of projects'
-                (click)='openProject({title: project.title})'>
+                (clicked)='openProject({title: project.title})'>
 
                 {{project.title}}
             </dk-vertical-hyperlink>

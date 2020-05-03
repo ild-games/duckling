@@ -1,12 +1,12 @@
-import { immutableDelete } from "./state";
+import { immutableDelete } from './state';
 
 describe('state', () => {
     describe('immutableDelete', () => {
         it('removes the element in an object hash that has the provided key', () => {
             let objectToTest = {
-                'a': 1,
-                'b': 2,
-                'c': 3,
+                a: 1,
+                b: 2,
+                c: 3,
             };
 
             const objectWithKeyRemoved = immutableDelete(objectToTest, 'a');
@@ -18,9 +18,9 @@ describe('state', () => {
 
         it('does nothing when provided a key that does not exist in the given object hash', () => {
             let objectToTest = {
-                'a': 1,
-                'b': 2,
-                'c': 3,
+                a: 1,
+                b: 2,
+                c: 3,
             };
 
             const objectWithKeyRemoved = immutableDelete(objectToTest, 'z');
@@ -38,9 +38,9 @@ describe('state', () => {
 
         it('returns the provided object hash when the key is falsy', () => {
             let objectToTest = {
-                'a': 1,
-                'b': 2,
-                'c': 3,
+                a: 1,
+                b: 2,
+                c: 3,
             };
 
             expect(immutableDelete(objectToTest, undefined)).toEqual(objectToTest);

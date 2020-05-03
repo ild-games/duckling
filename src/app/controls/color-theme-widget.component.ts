@@ -66,7 +66,7 @@ export class ColorThemeWidgetComponent implements OnInit, OnDestroy {
     }
 
     private _toggleColorTheme() {
-        const newTheme = this._ngRedux.getState().colorTheme.activeColorTheme === 'light' 
+        const newTheme = this._ngRedux.getState().colorTheme.activeColorTheme === 'light'
             ? 'dark'
             : 'light';
 

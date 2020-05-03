@@ -12,7 +12,7 @@ export class CommandService {
     private _nextId = 0;
     private _fuzzySearch = this._createFuzzySearch();
 
-    register(command: ICommand): number { 
+    register(command: ICommand): number {
         const registeredId = this._nextId;
         this._nextId++;
 
@@ -43,7 +43,7 @@ export class CommandService {
         return new (FuzzySearch as any).default(
             this._commands,
             [ 'name' ],
-            { 
+            {
                 sort: true
             });
     }
