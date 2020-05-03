@@ -3,6 +3,7 @@ import { ControlsModule } from '../controls/controls.module';
 import { MastheadComponent } from './masthead.component';
 import { UtilsModule } from '../utils/utils.module';
 import { CommandPaletteComponent } from './command-palette.component';
+import { CommandModule } from '../command/command.module';
 
 describe('MastheadComponent', () => {
     let component: MastheadComponent;
@@ -17,6 +18,7 @@ describe('MastheadComponent', () => {
             imports: [
                 ControlsModule,
                 UtilsModule,
+                CommandModule,
             ],
             declarations: [
                 MastheadComponent,
@@ -38,7 +40,7 @@ describe('MastheadComponent', () => {
     it('lets you access the command palette through a shortcut', () => {
         expect(commandPaletteHasFocus()).toBeFalse();
 
-        window.dispatchEvent(new KeyboardEvent('keyup', {'key': 'p', 'altKey': true}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {'altKey': true}));
 
         expect(commandPaletteHasFocus()).toBeTrue();
     });
@@ -46,7 +48,7 @@ describe('MastheadComponent', () => {
     it('does not focus the command palette when the incorrect shortcut is provided', () => {
         expect(commandPaletteHasFocus()).toBeFalse();
 
-        window.dispatchEvent(new KeyboardEvent('keyup', {'key': 'p', 'altKey': false}));
+        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'p', 'altKey': false}));
 
         expect(commandPaletteHasFocus()).toBeFalse();
     });

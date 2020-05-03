@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { IEnvironmentService, EnvironmentService } from './environment.service';
 import { StoreCreator, StoreEnhancer } from 'redux';
 import { mainReducer } from './main.state';
-import { CommandService } from './command.service';
+import { CommandService } from './command/command.service';
 
 describe('AppModule', () => {
     beforeEach(async(() => {

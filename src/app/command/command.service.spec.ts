@@ -66,7 +66,11 @@ describe('CommandService', () => {
         };
         commandService.register(command3);
 
-        const retrieved = commandService.search('');
+        let retrieved = commandService.search('');
+
+        expect(retrieved).toEqual([command2, command1, command3]);
+
+        retrieved = commandService.search();
 
         expect(retrieved).toEqual([command2, command1, command3]);
     });

@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { setCssVariable } from '../utils/css';
-import { ICommand, CommandService } from '../command.service';
+import { ICommand, CommandService } from '../command/command.service';
 import { WindowService } from '../utils/window.service';
 
 @Component({
@@ -27,8 +27,8 @@ import { WindowService } from '../utils/window.service';
                     placeholder='Quick command... (Alt)'
                     (click)='focus()'
                     (focus)='focus()'
-                    (blur)='blur($event)'
-                    (input)='queryUpdated($event)' />
+                    (blur)='blur()'
+                    (input)='search($event.target.value)' />
             </div>
 
             <div class='expanded-rows'>
@@ -72,7 +72,6 @@ export class CommandPaletteComponent {
         if (this._focused) {
             return;
         }
-        console.log('focus');
 
         this._focused = true;
         this.input.nativeElement.focus();
@@ -81,7 +80,7 @@ export class CommandPaletteComponent {
             this._keyDownWhileActive(event);
         });
 
-        this._search('');
+        this.search('');
     }
 
     blur() {
@@ -89,16 +88,19 @@ export class CommandPaletteComponent {
             return;
         }
 
-        console.log('blur');
         this._focused = false;
+
+        (document.activeElement as any).blur();
 
         this.input.nativeElement.value = '';
 
         this._windowService.unsubscribeKeyDownHandler(this._keyDownSubscription);
     }
 
-    queryUpdated(query: InputEvent) {
-        this._search((query.target as any).value);
+    search(query: string) {
+        this.queriedRows = this._commandService.search(query);
+
+        this._resetUI();
     }
 
     runCommand(command: ICommand) {
@@ -109,13 +111,7 @@ export class CommandPaletteComponent {
         return [
             'queried-row',
             rowIndex === this._quickSelectRow ? 'quick-select-row' : '',
-        ].join(' ');
-    }
-
-    private _search(query: string) {
-        this.queriedRows = this._commandService.search(query);
-
-        this._resetUI();
+        ].join(' ').trim();
     }
 
     private _resetUI() {
@@ -134,17 +130,22 @@ export class CommandPaletteComponent {
 
     private _keyDownWhileActive(event: KeyboardEvent): void {
         if (event.key.toLowerCase() === 'escape') {
-            this._blurNativeElement();
+            this.blur();
+            return;
         }
 
         if (!this.queriedRows || this.queriedRows.length === 0) {
             return;
         }
 
-        switch (event.key.toLowerCase()) {
+        this._processKeyAction(event.key);
+    }
+
+    private _processKeyAction(key: string) {
+        switch (key.toLowerCase()) {
             case 'enter':
                 this.runCommand(this.queriedRows[this._quickSelectRow]);
-                this._blurNativeElement();
+                this.blur();
                 break;
 
             case 'arrowdown':
@@ -155,10 +156,6 @@ export class CommandPaletteComponent {
                 this._decrementQuickSelectRow();
                 break;
         }
-    }
-
-    private _blurNativeElement() {
-        (document.activeElement as any).blur();
     }
 
     private _incrementQuickSelectRow() {

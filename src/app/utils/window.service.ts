@@ -3,8 +3,19 @@ import { Injectable } from '@angular/core';
 export type KeyboardHandler = (event: KeyboardEvent) => void;
 type RegisteredKeyboardHandlers = { [id: number]: KeyboardHandler };
 
+export interface IWindowService {
+    subscribeKeyDownHandler(event: KeyboardHandler): number;
+    unsubscribeKeyDownHandler(handlerId: number): void;
+
+    subscribeKeyPressHandler(event: KeyboardHandler): number;
+    unsubscribeKeyPressHandler(handlerId: number): void;
+
+    subscribeKeyUpHandler(event: KeyboardHandler): number;
+    unsubscribeKeyUpHandler(handlerId: number): void;
+}
+
 @Injectable()
-export class WindowService {
+export class WindowService implements IWindowService {
     private _nextKeyDownHandlerId = 0;
     private _keyDownHandlers: RegisteredKeyboardHandlers = {};
 

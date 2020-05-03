@@ -10,7 +10,7 @@ import { ControlsModule } from './controls/controls.module';
 import { SplashScreenModule } from './splashscreen/splash-screen.module';
 import { IDucklingState, mainReducer } from './main.state';
 import { StoreEnhancer } from 'redux';
-import { CommandService } from './command.service';
+import { CommandService } from './command/command.service';
 
 @NgModule({
     imports: [

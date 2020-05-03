@@ -4,7 +4,7 @@ import { ColorThemeWidgetComponent } from './color-theme-widget.component';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { IDucklingState } from 'src/app/main.state';
 import { AppModule } from '../app.module';
-import { CommandService } from '../command.service';
+import { CommandService } from '../command/command.service';
 
 describe('ColorThemeWidgetComponent', () => {
     let component: ColorThemeWidgetComponent;
