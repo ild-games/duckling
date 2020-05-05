@@ -28,10 +28,6 @@ Feature: Masthead
         When the user searches for a term that matches one object
         Then the masthead shows results for both
 
-    # Scenario: Allow expansion
-    #     Given 
-    #     When the user get 
-
     Scenario: Show recent items by default
         When the user focuses on the masthead
         Then the masthead shows recently chosen results
@@ -44,10 +40,10 @@ Feature: Masthead
         When the user searches for an asset's file name
         Then the results include files with similar names
 
-    # Scenario: Search for sub-asset within active asset
-    #     Given an asset in the project is active
-    #     When the user searches for 
-    #     Then
+    Scenario: Search for sub-asset within active asset
+        Given an asset in the project is active
+        When the user searches for 
+        Then ???
 
     Scenario: Context for every result
         Given the masthead shows a list of matches

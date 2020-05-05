@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 const page = new ShellPage();
 
-Given('I have opened the project selection screen', async () => {
+Given('the application is open', async () => {
     await page.navigateTo();
 });
 
