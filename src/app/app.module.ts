@@ -4,12 +4,13 @@ import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShellComponent } from './shell/shell.component';
+import { EnvironmentService } from './environment.service';
 import { ShellModule } from './shell/shell.module';
 import { ControlsModule } from './controls/controls.module';
 import { SplashScreenModule } from './splashscreen/splash-screen.module';
-import { IDucklingState, mainReducer, INITIAL_DUCKLING_STATE } from './main.state';
-import { environment } from 'src/environments/environment';
+import { IDucklingState, mainReducer } from './main.state';
 import { StoreEnhancer } from 'redux';
+import { CommandModule } from './command/command.module';
 
 @NgModule({
     imports: [
@@ -19,29 +20,30 @@ import { StoreEnhancer } from 'redux';
         BrowserModule,
         BrowserAnimationsModule,
         NgReduxModule,
+        CommandModule,
     ],
     bootstrap: [
         ShellComponent
+    ],
+    providers: [
+        EnvironmentService,
     ],
 })
 export class AppModule {
     constructor(
         private _ngRedux: NgRedux<IDucklingState>,
         private _devTools: DevToolsExtension,
+        private _environment: EnvironmentService,
     ) {
         let enhancers: StoreEnhancer<IDucklingState, any>[] = [];
 
-        if (!environment.production && this._devTools.isEnabled()) {
+        if (!this._environment.isProduction() && this._devTools.isEnabled()) {
             enhancers = [
                 ...enhancers,
                 this._devTools.enhancer()
             ];
         }
 
-        this._ngRedux.configureStore(
-            mainReducer,
-            INITIAL_DUCKLING_STATE,
-            [],
-            enhancers);
+        this._ngRedux.configureStore(mainReducer, undefined, [], enhancers);
     }
 }

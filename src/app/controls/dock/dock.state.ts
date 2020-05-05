@@ -1,4 +1,4 @@
-import { assertNever, removeByKey } from '../../utils/state';
+import { assertNever, immutableDelete } from '../../utils/state';
 import { IDocks, IPaneGroups, IPanes, IDockContents } from './dock';
 
 export interface IDockState {
@@ -172,7 +172,7 @@ export const defaultDockState: IDockState = {
     },
 };
 
-export function dockReducer(state: IDockState, action: ITabAction): IDockState {
+export function dockReducer(state: IDockState = defaultDockState, action: ITabAction): IDockState {
     switch (action.type) {
         case 'DK_DOCK__CHANGE_ACTIVE_PANE': {
             return {
@@ -190,7 +190,7 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
         case 'DK_DOCK__CLOSE_PANE': {
             return {
                 ...state,
-                panes: removeByKey(state.panes, action.paneId),
+                panes: immutableDelete(state.panes, action.paneId),
                 paneGroups: {
                     ...state.paneGroups,
                     [action.groupId]: {
@@ -211,11 +211,11 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
                     ...state.docks,
                     [action.dockId]: {
                         ...state.docks[action.dockId],
-                        children: removeByKey(state.docks[action.dockId].children, action.groupId)
+                        children: immutableDelete(state.docks[action.dockId].children, action.groupId)
                     },
                 },
-                paneGroups: removeByKey(state.paneGroups, action.groupId),
-                dockContents: removeByKey(state.dockContents, action.dockContentId),
+                paneGroups: immutableDelete(state.paneGroups, action.groupId),
+                dockContents: immutableDelete(state.dockContents, action.dockContentId),
             };
         }
 
@@ -223,13 +223,13 @@ export function dockReducer(state: IDockState, action: ITabAction): IDockState {
             return {
                 ...state,
                 docks: {
-                    ...removeByKey(state.docks, action.dockId),
+                    ...immutableDelete(state.docks, action.dockId),
                     [action.parentDockId]: {
                         ...state.docks[action.parentDockId],
-                        children: removeByKey(state.docks[action.parentDockId].children, action.dockId)
+                        children: immutableDelete(state.docks[action.parentDockId].children, action.dockId)
                     },
                 },
-                dockContents: removeByKey(state.dockContents, action.parentDockContentId),
+                dockContents: immutableDelete(state.dockContents, action.parentDockContentId),
             };
         }
 

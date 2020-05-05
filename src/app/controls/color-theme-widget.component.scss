@@ -1,0 +1,21 @@
+:host {
+    position: absolute;
+    display: block;
+    right: 10px;
+    top: 10px;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+
+    clr-icon {
+        color: var(--dk-masthead-icon);
+    }
+
+    clr-icon:hover {
+        cursor: pointer;
+    }
+}
