@@ -15,14 +15,13 @@ import { ColorThemeService } from './colorthemes/color-theme.service';
 
         <div class='content'>
             <dk-splash-screen
-                *ngIf='isShowSplashScreen'
+                *ngIf='!isShowSplashScreen'
                 (projectOpened)='onProjectOpened($event)'>
             </dk-splash-screen>
 
-            <dk-dock
-                *ngIf='!isShowSplashScreen'
-                [id]='rootDockId$ | async'>
-            </dk-dock>
+            <dk-canvas
+                *ngIf='isShowSplashScreen'>
+            </dk-canvas>
         </div>
 
         <dk-color-theme-widget>

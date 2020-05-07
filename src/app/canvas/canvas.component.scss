@@ -1,0 +1,13 @@
+:host {
+    flex: 1 1 auto;
+    display: flex;
+
+    .container {
+        flex: 1 1 auto;
+        display: flex;
+
+        canvas {
+            flex: 1 1 auto;
+        }
+    }
+}
