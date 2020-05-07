@@ -54,11 +54,13 @@ export class CanvasComponent implements AfterViewInit {
         this._cube.position.x = 0;
         this._scene.add(this._cube);
 
+
         const ground = new Mesh(
             new PlaneBufferGeometry(300, 300),
             new ShaderMaterial({
                 uniforms: {
-                    time: { value: 0 }
+                    time: { value: 0 },
+                    strokeThick: { value: 0.01 },
                 },
                 vertexShader: `
                     varying vec3 vPos;
@@ -68,33 +70,39 @@ export class CanvasComponent implements AfterViewInit {
                     }
                 `,
                 fragmentShader: `
+                    uniform float strokeThick;
                     varying vec3 vPos;
-                    float when_gt(float x, float y) {
-                      return max(sign(x - y), 0.0);
+
+                    vec2 plusOrMinus(float val) {
+                        return vec2(val + (val * 0.01), val - (val * 0.01));
                     }
-                    float when_le(float x, float y) {
-                      return 1.0 - when_gt(x, y);
-                    }
-                    float grid(vec3 pos, vec3 axis, float size) {
-                        float width = 1.0;
-                        // Grid size
-                        vec3 tile = pos / size;
-                        // Grid centered gradient
-                        vec3 level = abs(fract(tile) - 0.5);
-                        // Derivative (crisp line)
-                        vec3 deri = fwidth(tile);
-                        vec3 grid3D = clamp((level - deri * (width - 1.0)) / deri, 0.0, 1.0);
-                        // Shorter syntax but pow(0.0) fails on some GPUs
-                        // float lines = float(length(axis) > 0.0) * pow(grid3D.x, axis.x) * pow(grid3D.y, axis.y) * pow(grid3D.z, axis.z);
-                        float lines = float(length(axis) > 0.0)
-                            * (when_gt(axis.x, 0.0) * grid3D.x + when_le(axis.x, 0.0))
-                            * (when_gt(axis.y, 0.0) * grid3D.y + when_le(axis.y, 0.0))
-                            * (when_gt(axis.z, 0.0) * grid3D.z + when_le(axis.z, 0.0));
-                        return 1.0 - lines;
-                    }
+
                     void main() {
-                        float l = grid(vPos, vec3(1.0, 1.0, 0.0), 1.0);
-                        gl_FragColor = vec4(mix(vec3(0.1), vec3(1.0), l), 1.0);
+                        vec3 bgColor = vec3(.6);
+
+                        float dNearest = min(
+                            min(fract(vPos.x), 1.- fract(vPos.x)), 
+                            min(fract(vPos.y), 1.-fract(vPos.y))
+                            );
+
+                        float onGrid = 1.-smoothstep(
+                            strokeThick - (strokeThick * 0.1),
+                            strokeThick + (strokeThick * 0.1),
+                            dNearest
+                        );
+
+                        vec3 color = vec3(
+                            1.-step(strokeThick, abs(vPos.x)),
+                            1.-step(strokeThick, abs(vPos.y)),
+                            1.
+                        ) + vec3(.7);
+                        
+
+
+                        gl_FragColor = vec4(
+                            mix(bgColor, color, onGrid), 
+                            1.
+                        );
                     }
                 `,
                 extensions: {
@@ -110,13 +118,16 @@ export class CanvasComponent implements AfterViewInit {
     }
 
     private _animate() {
+        let timer = 0;
         const animateFrame = () => {
             requestAnimationFrame(animateFrame);
+            timer++;
 
             this._cube.rotation.x += 0.01;
             this._cube.rotation.y += 0.01;
             // this._camera.position.x += 0.1;
-            // this._camera.position.y += 0.1;
+            this._camera.position.y = 2* Math.sin(timer/50) + 5;
+            this._camera.lookAt(0,0,0);
             // this._camera.position.z += 0.1;
 
             this._renderer.render(this._scene, this._camera);
